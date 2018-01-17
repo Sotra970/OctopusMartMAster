@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout style="@style/product_details_card"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:elevation="1dp"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <TextView
+        style="@style/product_detail_card_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/card_title_product_reviews" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/product_details_review_recycler"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:gravity="end"
+        android:paddingEnd="12dp"
+        android:paddingStart="12dp">
+
+        <TextView
+            style="@style/show_more"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="المزيد"
+            android:id="@+id/activity_product_details_show_reviews"/>
+
+    </LinearLayout>
+
+
+</LinearLayout>

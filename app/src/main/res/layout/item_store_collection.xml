@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android" >
+    <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="6dp"
+        app:cardUseCompatPadding="true"
+        app:cardElevation="2dp"
+        app:cardCornerRadius="3dp"
+        app:cardBackgroundColor="@color/white">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:background="@color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingStart="12dp"
+                    android:paddingEnd="12dp"
+                    android:paddingTop="8dp"
+                    >
+                    <ImageView
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:src="@drawable/am_logo"
+                        android:id="@+id/store_img"
+                        />
+                    <LinearLayout
+                        android:layout_gravity="center"
+                        android:layout_marginStart="12dp"
+                        android:gravity="start"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        >
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            style="@style/text_bold"
+                            android:textSize="@dimen/mid_text_size"
+                            android:textColor="@color/colorPrimary"
+                            android:id="@+id/store_name_text"
+                            android:text="@string/store_dumm"
+                            />
+                        <android.support.v7.widget.AppCompatRatingBar
+                            android:id="@+id/user_rate"
+                            android:rating="3.5"
+                            android:stepSize="0.5"
+                            android:numStars="5"
+                            android:isIndicator="false"
+                            style="@style/RatingBarIndicator"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:background="@color/grey_100"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    >
+                    <com.example.ahmed.octopusmart.View.Widget.AspectRatioImageView
+                        android:layout_gravity="center"
+                        app:aspectRatioEnabled="true"
+                        app:aspectRatio="1"
+                        app:dominantMeasurement="width"
+                        android:layout_weight="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/wear"
+                        android:adjustViewBounds="true"
+                        android:id="@+id/store_item_img"
+                        />
+
+                    <View
+                        android:layout_margin="4dp"
+                        android:background="@color/grey_800"
+                        android:layout_width="2dp"
+                        android:layout_height="match_parent"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+                        <com.example.ahmed.octopusmart.View.Widget.AspectRatioImageView
+                            app:aspectRatioEnabled="true"
+                            app:aspectRatio="0.5"
+                            app:dominantMeasurement="width"
+                            android:layout_marginTop="4dp"
+                            android:layout_marginBottom="4dp"
+                            android:layout_weight="1"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/wear2"
+                            android:adjustViewBounds="true"
+                            android:id="@+id/store_item_img2"
+                            />
+                        <View
+                            android:layout_margin="4dp"
+                            android:background="@color/grey_800"
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"/>
+                        <com.example.ahmed.octopusmart.View.Widget.AspectRatioImageView
+                            app:aspectRatioEnabled="true"
+                            app:aspectRatio="0.5"
+                            app:dominantMeasurement="width"
+                            android:layout_marginTop="4dp"
+                            android:layout_marginBottom="4dp"
+                            android:layout_weight="1"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/wear3"
+                            android:adjustViewBounds="true"
+                            android:id="@+id/store_item_img3"
+                            />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+</FrameLayout>

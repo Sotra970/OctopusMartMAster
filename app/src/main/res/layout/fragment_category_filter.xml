@@ -1,0 +1,59 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/white">
+    <View
+        android:background="@drawable/shadow_grad"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"/>
+    <FrameLayout
+        android:id="@+id/sheet_header"
+        android:elevation="3dp"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:minHeight="?actionBarSize"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:orientation="horizontal"
+            android:gravity="start|center"
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize">
+
+            <ImageView
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:tint="@color/colorPrimary"
+                android:src="@drawable/ic_filter_list_black_48dp"
+                android:layout_width="24dp"
+                android:layout_height="24dp" />
+            <TextView
+                android:layout_weight="1"
+                android:textColor="@color/colorPrimary"
+                style="@style/text_bold"
+                android:text="@string/filter"
+                android:textSize="@dimen/mid_text_size"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <ImageView
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:tint="@color/colorPrimary"
+                android:src="@drawable/ic_keyboard_arrow_down_white_24dp"
+                android:layout_width="24dp"
+                android:layout_height="24dp" />
+        </LinearLayout>
+    </FrameLayout>
+    <ExpandableListView
+        android:background="@color/grey_100"
+        android:visibility="visible"
+        android:choiceMode="singleChoice"
+        android:groupIndicator="@null"
+        android:id="@+id/expandableListView"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:divider="@null"
+        android:dividerHeight="2dp" />
+</LinearLayout>

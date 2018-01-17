@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <transitionSet
+        xmlns:android="http://schemas.android.com/apk/res/android">
+
+        <transitionSet
+            android:duration="300"
+            xmlns:android="http://schemas.android.com/apk/res/android">
+
+            <transition
+                class="com.example.ahmed.octopusmart.Utils.transition.LiftOff"
+                android:elevation="2dp" />
+            <targets>
+                <target android:targetId="@id/main_container" />
+            </targets>
+        </transitionSet>
+
+        <changeImageTransform  android:duration="300" />
+
+    <changeBounds android:duration="300"
+            xmlns:android="http://schemas.android.com/apk/res/android">
+            <pathMotion
+                class="com.example.ahmed.octopusmart.Utils.transition.GravityArcMotion"
+                android:maximumAngle="90" />
+
+        </changeBounds>
+
+    </transitionSet>

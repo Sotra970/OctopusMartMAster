@@ -1,0 +1,356 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <include layout="@layout/bg"/>
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:id="@+id/main_linear"
+            >
+
+
+            <FrameLayout
+                android:background="@color/grey_100"
+                android:elevation="3dp"
+                android:layout_width="match_parent"
+                android:layout_height="228dp">
+                <android.support.v4.view.ViewPager
+                    android:id="@+id/pager"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_alignParentTop="true" />
+                <me.relex.circleindicator.CircleIndicator
+                    android:id="@+id/indicator"
+                    android:elevation="3dp"
+                    app:ci_drawable_unselected="@drawable/circle_shape_indicator_unselected"
+                    app:ci_drawable="@drawable/accent_circle_shape"
+                    app:ci_height="8dp"
+                    app:ci_width="8dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_gravity="bottom"/>
+            </FrameLayout>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardBackgroundColor="@color/grey_50"
+                app:cardElevation="2dp"
+                android:layout_marginTop="8dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginRight="12dp"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginTop="8dp">
+                    <TextView
+                        android:id="@+id/mobile_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:layout_marginTop="4dp"
+                        android:text="@string/dummy_title"
+                        android:textColor="@color/black"
+                        style="@style/text_bold"
+                        android:textSize="@dimen/mid_text_size"
+                        />
+
+                    <include layout="@layout/card_sep"/>
+                    <LinearLayout
+                        android:layout_marginBottom="8dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="4dp"
+                        >
+
+                        <FrameLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+                            <View
+                                android:layout_width="80dp"
+                                android:layout_height="1dp"
+                                android:id="@+id/view_price"
+                                android:layout_gravity="center"
+                                android:background="@color/blue_gray"></View>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text=" 10000.00 جنيه"
+                                android:id="@+id/price_before"
+                                android:textColor="@color/blue_gray"
+                                />
+                        </FrameLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+                            <TextView
+                                android:id="@+id/price"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center|right"
+                                android:text="9989.00 جنيه"
+                                android:textStyle="bold"
+                                android:textColor="@color/dark_orange"
+                                android:textSize="@dimen/mid_text_size"/>
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+
+                <LinearLayout
+                    android:layout_gravity="end"
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/rating_img"
+                        android:layout_width="52dp"
+                        android:layout_height="52dp"
+                        android:layout_gravity="center"
+                        android:tint="@color/dark_orange"
+                        android:layout_marginTop="12dp"
+                        android:src="@drawable/ic_star_black_48dp"
+                        />
+
+                    <TextView
+                        android:id="@+id/rating_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/rating_dumm"
+                        android:textColor="@color/black"
+                        android:layout_gravity="center"
+                        android:textStyle="bold"
+                        android:layout_marginTop="8dp"
+                        />
+                </LinearLayout>
+
+
+
+                <LinearLayout
+
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <ImageView
+                        android:id="@+id/add_favorite_img"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_favorite_black_48dp"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="12dp"
+                        android:tint="@color/dark_orange"/>
+                    <TextView
+                        android:id="@+id/favorite_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/add_favorite"
+                        android:textColor="@color/black"
+                        android:layout_gravity="center"
+                        android:textStyle="bold"
+                        android:layout_marginTop="8dp"
+                        />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/sale_img"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_local_offer_black_48dp"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="12dp"
+                        android:tint="@color/dark_orange"/>
+                    <TextView
+                        android:id="@+id/sale_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/sale"
+                        android:textColor="@color/black"
+                        android:layout_gravity="center"
+                        android:textStyle="bold"
+                        android:layout_marginTop="8dp"
+                        />
+                </LinearLayout>
+
+
+
+            </LinearLayout>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/main_specs_card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:cardBackgroundColor="@color/grey_50"
+                app:cardElevation="2dp"
+                >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_gravity="right"
+                    android:orientation="horizontal"
+                    android:layout_height="wrap_content">
+
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/ic_keyboard_arrow_left_black_48dp"/>
+                </LinearLayout>
+                <TextView
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:textColor="@color/black"
+                    android:paddingRight="8dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/main_specs"
+                    style="@style/text_bold"
+                    />
+            </android.support.v7.widget.CardView>
+
+
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:cardBackgroundColor="@color/grey_50"
+                app:cardElevation="2dp"
+                >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_gravity="right"
+                    android:orientation="horizontal"
+                    android:layout_height="wrap_content">
+
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/ic_keyboard_arrow_left_black_48dp"/>
+                </LinearLayout>
+                <TextView
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:textColor="@color/black"
+                    android:paddingRight="8dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/main_specs"
+                    style="@style/text_bold"
+                    />
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:cardBackgroundColor="@color/grey_50"
+                app:cardElevation="2dp"
+                >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_gravity="right"
+                    android:orientation="horizontal"
+                    android:layout_height="wrap_content">
+
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/ic_keyboard_arrow_left_black_48dp"/>
+                </LinearLayout>
+                <TextView
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:textColor="@color/black"
+                    android:paddingRight="8dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/main_specs"
+                    style="@style/text_bold"
+                    />
+            </android.support.v7.widget.CardView>
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_weight="2"
+                >
+
+
+
+            </LinearLayout>
+
+
+
+
+
+
+    <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="12dp"
+                android:layout_marginTop="8dp"
+                android:background="@color/grey_50">
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <android.support.design.widget.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_weight="1"
+                        android:layout_height="36dp" />
+
+                </android.support.design.widget.TextInputLayout>
+
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+
+
+
+</android.support.design.widget.CoordinatorLayout>

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+    <include layout="@layout/bg"/>
+    <LinearLayout
+        android:id="@+id/body_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+
+        <include layout="@layout/no_data_layout"/>
+
+
+        <android.support.v7.widget.RecyclerView
+            android:layout_marginRight="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_weight="1"
+            android:layout_marginTop="8dp"
+            android:id="@+id/recycler_view_cart"
+            android:layout_width="match_parent"
+            android:layout_height="0dp">
+
+        </android.support.v7.widget.RecyclerView>
+
+
+
+        <View
+            android:visibility="gone"
+            android:background="@color/grey_800"
+            android:layout_height="1.5dp"
+            android:layout_width="match_parent"
+            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="12dp"
+            >
+
+
+            <LinearLayout
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:orientation="vertical">
+                <TextView
+                    android:textSize="@dimen/large_text_size"
+                    android:textColor="@color/grey_900"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/full_amount"
+                    android:layout_marginRight="8dp"
+                    android:layout_gravity="center|right"/>
+               <LinearLayout
+                   android:gravity="center|start"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content">
+                   <TextView
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:text="3000.00"
+                       android:layout_marginStart="8dp"
+                       android:textSize="@dimen/large_text_size"
+                       android:id="@+id/total"
+                       android:textStyle="bold"
+                       android:textColor="@color/colorAccent"
+                       />
+                   <TextView
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:text="@string/le"
+                       android:textSize="@dimen/large_text_size"
+                       android:textStyle="bold"
+                       android:layout_gravity="center|right"
+                       android:textColor="@color/colorAccent"
+                       />
+               </LinearLayout>
+            </LinearLayout>
+
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="شراء"
+                android:layout_gravity="center"
+                android:id="@+id/buy_btn"
+                android:textColor="@color/white"
+                android:background="@drawable/accent_btn"
+                android:layout_marginEnd="12dp"
+                android:textSize="@dimen/xl_text_size"/>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <include layout="@layout/login_loading_view"/>
+</android.support.design.widget.CoordinatorLayout>

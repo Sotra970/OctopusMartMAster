@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="AppTheme.Category">
+
+        <item name="android:windowBackground">@color/transparent</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowAnimationStyle">@null</item>
+        <item name="android:windowAllowEnterTransitionOverlap">false</item>
+        <item name="android:windowSharedElementsUseOverlay">true</item>
+        <item name="android:windowEnterTransition">
+            @transition/slide_up_enter
+        </item>
+        <item name="android:windowReturnTransition">
+            @transition/slide_up_exit
+        </item>
+        <item name="android:windowExitAnimation">
+            @transition/slide_up_exit
+        </item>
+
+
+        <item name="android:windowSharedElementEnterTransition">@transition/bar_category_item_arc_transtion</item>
+    </style>
+
+    <style name="AppTheme.Transparent.ProductDetails">
+
+        <item name="android:windowAnimationStyle">@null</item>
+        <item name="android:windowAllowEnterTransitionOverlap">false</item>
+        <item name="android:windowSharedElementsUseOverlay">true</item>
+        <item name="android:windowEnterTransition">
+            @transition/fade_in_transtion
+        </item>
+        <item name="android:windowReturnTransition">
+            @transition/fade_out_transtion
+        </item>
+        <item name="android:windowExitAnimation">
+            @transition/fade_out_transtion
+        </item>
+
+
+        <item name="android:windowSharedElementEnterTransition">@transition/login_shared_transtion</item>
+    </style>
+
+
+</resources>

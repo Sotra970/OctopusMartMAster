@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="phone_error">رقم الهاتف غير صالح</string>
+    <string name="link_error">الرابط غير صالح</string>
+    <string name="not_valid"> غير صالح</string>
+    <string name="email_error">البريد الالكتروني عير صالح</string>
+    <string name="empty_error">الرجاء ادخال قيمة</string>
+    <string name="already_exist">موجود بالفعل</string>
+    <string name="choose_image">اختيار صورة</string>
+    <string name="empty_inputs">مدخلات عير صالحة</string>
+    <string name="requiered">مطلوب</string>
+    <string name="password_not_match">الرقم السري غير مطابق</string>
+</resources>

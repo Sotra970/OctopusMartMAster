@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <attr name="fontType">
+        <flag name="changa_bold" value="20002" />
+        <flag name="changa_regular" value="20003" />
+        <flag name="changa_light" value="20004" />
+        <flag name="changa_extra_bold" value="20005" />
+        <flag name="changa_extra_light" value="20006" />
+        <flag name="changa_medium" value="20007" />
+        <flag name="changa_semi_bold" value="20008" />
+
+    </attr>
+
+
+    <declare-styleable name="CustomTextView">
+        <attr name="font_name" format="string" />
+    </declare-styleable>
+
+
+    <declare-styleable name="ExpandableTextView">
+        <attr name="trimLength" format="integer"/>
+    </declare-styleable>
+
+    <declare-styleable name="AspectRatioImageView">
+        <attr name="aspectRatio" format="float" />
+        <attr name="aspectRatioEnabled" format="boolean" />
+        <attr name="dominantMeasurement">
+            <enum name="width" value="0" />
+            <enum name="height" value="1" />
+        </attr>
+    </declare-styleable>
+
+
+    <declare-styleable name="FixedAspectRatioFrameLayout">
+        <attr name="aspectRatioWidth" format="integer" />
+        <attr name="aspectRatioHeight" format="integer" />
+    </declare-styleable>
+
+    <!-- Declare custom theme attributes that allow changing which styles are
+         used for button bars depending on the API level.
+         ?android:attr/buttonBarStyle is new as of API 11 so this is
+         necessary to support previous API levels. -->
+    <declare-styleable name="ButtonBarContainerTheme">
+        <attr name="metaButtonBarStyle" format="reference" />
+        <attr name="metaButtonBarButtonStyle" format="reference" />
+    </declare-styleable>
+
+
+</resources>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    android:id="@+id/background"
+    android:background="@color/grey_50"
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <ImageView
+        android:scaleY="2.5"
+        android:scaleX="2.5"
+        android:alpha="0.06"
+        android:tint="@color/colorPrimaryDark"
+        android:src="@drawable/bg_pattern"
+        android:scaleType="centerCrop"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+
+</FrameLayout>

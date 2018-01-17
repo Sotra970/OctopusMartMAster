@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="phone_error">phone not valid</string>
+    <string name="link_error">link not valid</string>
+    <string name="email_error">email not valid</string>
+    <string name="not_valid">not valid</string>
+    <string name="empty_error">can\'t be empty</string>
+    <string name="already_exist">already exist</string>
+    <string name="choose_image">choose image</string>
+    <string name="empty_inputs">empty inputs</string>
+    <string name="requiered">Required filed</string>
+    <string name="password_not_match">Password not match</string>
+</resources>

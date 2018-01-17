@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <include layout="@layout/toolbar_category"/>
+
+    <FrameLayout
+        android:layout_marginBottom="?actionBarSize"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        <include layout="@layout/bg"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:layout_marginRight="16dp"
+            android:layout_marginLeft="16dp"
+            android:id="@+id/cats_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </android.support.v7.widget.RecyclerView>
+
+
+        <include layout="@layout/no_data_layout"/>
+
+        <include layout="@layout/layout_fragment_container"/>
+    </FrameLayout>
+
+    <FrameLayout
+        android:elevation="16dp"
+        android:id="@+id/filter_fragment"
+        app:behavior_peekHeight="?actionBarSize"
+        app:layout_behavior="@string/bottom_sheet_behavior"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+</android.support.design.widget.CoordinatorLayout>
