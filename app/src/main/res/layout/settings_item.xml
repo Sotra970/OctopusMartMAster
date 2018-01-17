@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/white"
-    android:elevation="2dp"
     app:cardElevation="2dp">
 
     <LinearLayout
@@ -57,22 +56,11 @@
                 android:focusableInTouchMode="true"
                 android:background="@color/transparent"
                 android:orientation="horizontal"
+                android:visibility="gone"
                 />
 
         </FrameLayout>
 
-
-        <com.kyleduo.switchbutton.SwitchButton
-            android:visibility="gone"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/settings_item_switch"
-            app:kswTextOff="@string/en"
-            app:kswTextOn="@string/ar"
-            app:kswBackColor="@color/grey_300"
-            app:kswThumbColor="@color/colorAccent"
-            android:layout_marginStart="16dp"
-            />
 
     </LinearLayout>
 

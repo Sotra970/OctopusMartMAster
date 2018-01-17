@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.widget.TextView;
 
 import com.example.ahmed.octopusmart.Activity.Base.BaseActivity;
@@ -20,6 +21,7 @@ import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 import static com.example.ahmed.octopusmart.Fragment.OrderStateFragment.OrderCases.history;
 
@@ -57,12 +59,16 @@ public class SettingsActivity extends BaseActivity implements GenericItemClickCa
         overridePendingTransition(R.anim.fade_in , R.anim.fade_out);
     }
 
+    @OnClick(R.id.activity_back)
+    void onBack(){
+        finish();
+    }
 
     private void init() {
         settingsAdapter = new SettingsAdapter(getSettings(), this, this);
 
         DividerItemDecoration dividerItemDecoration =
-                new DividerItemDecoration(this);
+                new DividerItemDecoration(this, R.layout.divider_decoration);
         dividerItemDecoration.setActivated(true);
         recyclerView.addItemDecoration(dividerItemDecoration);
 
@@ -83,6 +89,8 @@ public class SettingsActivity extends BaseActivity implements GenericItemClickCa
 
     @Override
     public void onItemClicked(String item) {
+        Log.e("setting", "item clicked " + item);
+
         if(Objects.equals(item, getString(R.string.settings_address))){
             changeAddress();
         }

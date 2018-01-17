@@ -25,12 +25,6 @@ public class SettingItemViewHolder extends RecyclerView.ViewHolder{
     @BindView(R.id.settings_item_image)
     public ImageView imageView;
 
-    @BindView(R.id.settings_item_switch)
-    public SwitchButton mswitch;
-
-    @BindView(R.id.settings_no_click)
-    public View no_click;
-
 
     public SettingItemViewHolder(View itemView) {
         super(itemView);

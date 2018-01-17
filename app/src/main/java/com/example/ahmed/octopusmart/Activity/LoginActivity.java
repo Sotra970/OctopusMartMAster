@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.ahmed.octopusmart.Activity.Base.BaseActivity;
+import com.example.ahmed.octopusmart.BadgeConfig.Utils;
 import com.example.ahmed.octopusmart.Fragment.SignInFragment;
 import com.example.ahmed.octopusmart.Fragment.SignUpFragment;
 import com.example.ahmed.octopusmart.R;
@@ -49,7 +50,9 @@ public class LoginActivity extends BaseActivity {
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
 
-        FabTransform.setup(this, main_container);
+        if(Utils.isLollipopOrhigher()){
+            FabTransform.setup(this, main_container);
+        }
 
         SignInFragment signInFragment = SignInFragment.getInstance();
         SignUpFragment signUpFragment = SignUpFragment.getInstance();

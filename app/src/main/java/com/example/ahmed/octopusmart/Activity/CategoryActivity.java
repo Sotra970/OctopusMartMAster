@@ -53,7 +53,8 @@ import static com.example.ahmed.octopusmart.Activity.Base.LoadingDialogActivity.
  * Created by ahmed on 12/6/2017.
  */
 
-public class CategoryActivity extends BaseActivity implements FilterListener , HomeAdapterListener {
+public class CategoryActivity extends BaseActivity
+        implements FilterListener , HomeAdapterListener {
 
     @BindView(R.id.cats_recycler_view)
     RecyclerView catsRecyclerView;

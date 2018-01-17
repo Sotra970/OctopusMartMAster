@@ -3,6 +3,7 @@ package com.example.ahmed.octopusmart.BadgeConfig;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
+import android.os.Build;
 
 import com.example.ahmed.octopusmart.R;
 
@@ -26,5 +27,9 @@ public class Utils {
         badge.setCount(count);
         icon.mutate();
         icon.setDrawableByLayerId(R.id.ic_badge, badge);
+    }
+
+    public static boolean isLollipopOrhigher() {
+        return Build.VERSION.SDK_INT >= 21;
     }
 }

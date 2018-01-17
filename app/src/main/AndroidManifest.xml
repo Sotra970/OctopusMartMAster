@@ -37,6 +37,8 @@
             android:name=".Activity.ProductDetailsActivity"
             android:theme="@style/AppTheme.Transparent.ProductDetails" />
         <activity android:name=".Activity.OrderCaseActivity"></activity>
+
+        <activity android:name=".Activity.PasswordActivity"/>
     </application>
 
 </manifest>
