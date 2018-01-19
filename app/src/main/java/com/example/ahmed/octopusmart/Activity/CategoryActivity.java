@@ -12,6 +12,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.transition.Transition;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -19,6 +20,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.example.ahmed.octopusmart.Activity.Base.BaseActivity;
 import com.example.ahmed.octopusmart.App.Config;
+import com.example.ahmed.octopusmart.BadgeConfig.Utils;
 import com.example.ahmed.octopusmart.Fragment.FilterFragment;
 import com.example.ahmed.octopusmart.Interfaces.HomeAdapterListener;
 import com.example.ahmed.octopusmart.Interfaces.FilterListener;
@@ -54,7 +56,9 @@ import static com.example.ahmed.octopusmart.Activity.Base.LoadingDialogActivity.
  */
 
 public class CategoryActivity extends BaseActivity
-        implements FilterListener , HomeAdapterListener {
+        implements FilterListener,
+        HomeAdapterListener
+{
 
     @BindView(R.id.cats_recycler_view)
     RecyclerView catsRecyclerView;
@@ -159,7 +163,6 @@ public class CategoryActivity extends BaseActivity
         fragmentTransaction.replace(R.id.filter_fragment, menuFragment);
         fragmentTransaction.commit() ;
         bottomSheetBehavior = BottomSheetBehavior.from(findViewById(R.id.filter_fragment));
-
     }
 
     void switchBottomSheet(){
@@ -275,7 +278,6 @@ public class CategoryActivity extends BaseActivity
 
                     }
 
-
                 }
 
             }
@@ -283,5 +285,23 @@ public class CategoryActivity extends BaseActivity
     }
 
 
+    public void reCalculatePeekValue(int filtersH){
+        Log.e("recalculate H", filtersH + "");
+        bottomSheetBehavior = BottomSheetBehavior.from(findViewById(R.id.filter_fragment));
 
+        int height = getResources().getDimensionPixelSize(R.dimen.filter_peek_height);
+
+        if(filtersH == 0){
+            Log.e("recalculate H", "no filters reset peek value");
+
+            bottomSheetBehavior.setPeekHeight(height);
+        }
+
+        else{
+            Log.e("recalculate H", "filters exist");
+
+            bottomSheetBehavior.setPeekHeight(filtersH + height + Utils.dpToPx(16, CategoryActivity.this));
+        }
+
+    }
 }

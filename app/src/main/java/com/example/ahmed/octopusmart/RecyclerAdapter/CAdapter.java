@@ -1,6 +1,7 @@
 package com.example.ahmed.octopusmart.RecyclerAdapter;
 
 import android.content.Context;
+import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -19,6 +20,7 @@ import com.example.ahmed.octopusmart.holders.CartItemViewHolder;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.logging.Handler;
 
 /**
  * Created by ahmed on 20/12/2017.
@@ -39,6 +41,7 @@ public class CAdapter extends GenericAdapter<CartProductItem> {
     public void setChangePriceCallback(ChangePriceCallback changePriceCallback) {
         this.changePriceCallback = changePriceCallback;
     }
+
     HomeAdapterListener productListener ;
 
     public void setProductListener(HomeAdapterListener productListener) {
@@ -56,6 +59,7 @@ public class CAdapter extends GenericAdapter<CartProductItem> {
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         super.onBindViewHolder(holder, position);
         final CartProductItem cartProductItem = getItem(position);
+
         if(cartProductItem != null){
             final ProductModel productModel = cartProductItem.getProductModel();
 
@@ -64,7 +68,18 @@ public class CAdapter extends GenericAdapter<CartProductItem> {
 
                 cartItemViewHolder.name.setText(productModel.getName());
 
-                updatePrice(cartItemViewHolder.price, cartItemViewHolder.count, cartProductItem);
+                long price =  -1;
+                try {
+                    price = cartProductItem.getProductModel().getPrice();
+                }
+                catch (Exception e){}
+
+                if(price != -1){
+                    int quan = cartProductItem.getQuantity();
+                    long totalPrice = quan * price;
+                    cartItemViewHolder.count.setText(String.valueOf(quan));
+                    cartItemViewHolder.price.setText(String.valueOf(totalPrice));
+                }
 
                 cartItemViewHolder.delete
                         .setOnClickListener(
@@ -72,19 +87,29 @@ public class CAdapter extends GenericAdapter<CartProductItem> {
                                     @Override
                                     public void onClick(View v) {
 
-                                    Appcontroler.getInstance().getExecutorService()
+                                        removeItems(Collections.singletonList(cartProductItem));
+
+                                        Appcontroler.getExecutorService()
                                                 .submit(
                                                         new Runnable() {
                                                             @Override
                                                             public void run() {
                                                                 Cart.removeProduct(productModel.getId(), getContext());
-                                                                changePriceCallback.update();
+                                                                final long price = Cart.getTotalPrice(getContext());
+
+                                                                android.os.Handler handler = new android.os.Handler(Looper.getMainLooper());
+                                                                handler.post(
+                                                                        new Runnable() {
+                                                                            @Override
+                                                                            public void run() {
+
+                                                                                changePriceCallback.update(price);
+                                                                            }
+                                                                        }
+                                                                );
                                                             }
                                                         }
                                                 );
-
-                                        removeItems(Collections.singletonList(cartProductItem));
-
 
                                     }
                                 }
@@ -97,6 +122,7 @@ public class CAdapter extends GenericAdapter<CartProductItem> {
                                 int quan = cartProductItem.getQuantity();
                                 cartProductItem.setQuantity(++quan);
                                 updatePrice(cartItemViewHolder.price, cartItemViewHolder.count, cartProductItem);
+                                changePriceCallback.update(Cart.getTotalPrice(getContext()));
                             }
                         }
                 );
@@ -109,6 +135,7 @@ public class CAdapter extends GenericAdapter<CartProductItem> {
                                 if(quan > 1){
                                     cartProductItem.setQuantity(--quan);
                                     updatePrice(cartItemViewHolder.price, cartItemViewHolder.count, cartProductItem);
+                                    changePriceCallback.update(Cart.getTotalPrice(getContext()));
                                 }
                             }
                         }
@@ -139,13 +166,12 @@ public class CAdapter extends GenericAdapter<CartProductItem> {
             textView.setText(String.valueOf(totalPrice));
         }
 
-        Appcontroler.getInstance().getExecutorService()
+        Appcontroler.getExecutorService()
                 .submit(
                         new Runnable() {
                             @Override
                             public void run() {
                                 Cart.updateItem(cartProductItem, getContext());
-                                changePriceCallback.update();
                             }
                         }
                 );

@@ -48,8 +48,7 @@ import retrofit2.Response;
  */
 
 public class CartFragment extends BaseLoginFragment
-        implements GenericItemClickCallback<CartProductItem>
-{
+        implements GenericItemClickCallback<CartProductItem>,ChangePriceCallback {
 
 
     @BindView(R.id.recycler_view_cart)
@@ -66,10 +65,9 @@ public class CartFragment extends BaseLoginFragment
 
     @OnClick(R.id.buy_btn)
     void createOrder(){
-        if(isAddressAvailable()){
-
-
-            Appcontroler.getInstance().getExecutorService()
+        if(isAddressAvailable())
+        {
+            Appcontroler.getExecutorService()
                     .submit(
                             new Runnable() {
                                 @Override
@@ -211,12 +209,7 @@ public class CartFragment extends BaseLoginFragment
             ButterKnife.bind(this,view);
 
             cartAdapter = new CAdapter(null, getContext(), this);
-            cartAdapter.setChangePriceCallback(new ChangePriceCallback() {
-                @Override
-                public void update() {
-                    load();
-                }
-            });
+            cartAdapter.setChangePriceCallback(this);
             cartAdapter.setProductListener(new HomeAdapterListener(){
                 @Override
                 public void onProductClicked(ProductModel productModel, View shared, int postion) {
@@ -263,7 +256,7 @@ public class CartFragment extends BaseLoginFragment
 
     private void load(){
         showLoading();
-        Appcontroler.getInstance().getExecutorService()
+        Appcontroler.getExecutorService()
                 .submit(
                         new Runnable() {
                             @Override
@@ -312,7 +305,7 @@ public class CartFragment extends BaseLoginFragment
 
     private void hideLoading(){
         try {
-                    showLoading(LoadingDialogActivity.LoadingCases.hide, null);
+            showLoading(LoadingDialogActivity.LoadingCases.hide, null);
         }
         catch (Exception e){
             e.printStackTrace();
@@ -321,6 +314,11 @@ public class CartFragment extends BaseLoginFragment
 
     public int getPaymentMethod() {
         return 2;
+    }
+
+    @Override
+    public void update(long price) {
+        totalPriceTextView.setText(String.valueOf(price));
     }
 }
 

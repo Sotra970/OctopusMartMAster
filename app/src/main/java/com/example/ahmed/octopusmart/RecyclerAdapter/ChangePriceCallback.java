@@ -5,5 +5,5 @@ package com.example.ahmed.octopusmart.RecyclerAdapter;
  */
 
 public  interface ChangePriceCallback {
-    void update();
+    void update(long price);
 }

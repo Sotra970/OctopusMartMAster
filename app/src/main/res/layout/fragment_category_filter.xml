@@ -20,7 +20,7 @@
             android:orientation="horizontal"
             android:gravity="start|center"
             android:layout_width="match_parent"
-            android:layout_height="?actionBarSize">
+            android:layout_height="@dimen/filter_peek_height">
 
             <ImageView
                 android:layout_marginStart="8dp"
@@ -46,6 +46,39 @@
                 android:layout_height="24dp" />
         </LinearLayout>
     </FrameLayout>
+
+    <!--<GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/filters"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp">
+
+
+
+    </GridLayout>-->
+
+    <com.nex3z.flowlayout.FlowLayout
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:flChildSpacing="6dp"
+        app:flChildSpacingForLastRow="align"
+        app:flRowSpacing="8dp"
+        android:id="@+id/filters"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        >
+
+
+    </com.nex3z.flowlayout.FlowLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="16dp"
+        android:background="@color/transparent"></LinearLayout>
+
     <ExpandableListView
         android:background="@color/grey_100"
         android:visibility="visible"

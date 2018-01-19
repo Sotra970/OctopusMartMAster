@@ -82,7 +82,6 @@ public class ProductModel implements Serializable {
         return isFav;
     }
 
-    private final static long serialVersionUID = -3694115637770084395L;
 
     public Long getId() {
         return id;
@@ -220,9 +219,6 @@ public class ProductModel implements Serializable {
         this.userRates = userRates;
     }
 
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
-    }
 
     @Override
     public String toString() {

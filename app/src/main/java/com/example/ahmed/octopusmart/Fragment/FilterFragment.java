@@ -9,16 +9,23 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.ExpandableListView;
+import android.widget.GridLayout;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 
 import com.example.ahmed.octopusmart.Activity.CategoryActivity;
+import com.example.ahmed.octopusmart.BadgeConfig.Utils;
 import com.example.ahmed.octopusmart.Interfaces.FilterListener;
 import com.example.ahmed.octopusmart.Model.ServiceModels.FilterModel;
 import com.example.ahmed.octopusmart.Model.ServiceModels.SubFilterModel;
 import com.example.ahmed.octopusmart.R;
+import com.nex3z.flowlayout.FlowLayout;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -100,12 +107,17 @@ public class FilterFragment extends Fragment {
 
                 CheckBox checkBox = v.findViewById(R.id.sub_filter_check_box) ;
                 SubFilterModel subFilterModel =   filterModels.get(groupPosition).getSubFilters().get(childPosition) ;
+
                 if (checkBox.isChecked()){
                     checkBox.setChecked(false);
 
-                }else
-                if (!checkBox.isChecked()){
+                    onItemChecked(subFilterModel, false, groupPosition, childPosition);
+                }
+
+                else if (!checkBox.isChecked()){
                     checkBox.setChecked(true);
+
+                    onItemChecked(subFilterModel, true, groupPosition, childPosition);
                 }
                 subFilterModel.setChecked(checkBox.isChecked());
                 subFilterModel.setGroup(groupPosition);
@@ -139,7 +151,140 @@ public class FilterFragment extends Fragment {
         SubFilterModel subFilterModel =   filterModels.get(groupPosition).getSubFilters().get(childPosition) ;
         subFilterModel.setChecked(checkBox.isChecked());
         filterModels.get(groupPosition).getSubFilters().set(childPosition,subFilterModel);
+    }
 
+    @BindView(R.id.filters)
+    FlowLayout filtersLayout;
+
+    ArrayList<View> activeFilters = null;
+
+    void onItemChecked(SubFilterModel subFilterModel, boolean checked,  int group, int item) {
+        if(subFilterModel != null){
+            if(checked){
+                addActiveFilter(subFilterModel, group, item);
+            }
+
+            else{
+                removeActiveFilter(subFilterModel);
+            }
+        }
+    }
+
+    private void addActiveFilter(SubFilterModel subFilterModel, final int group, final int item) {
+        if(activeFilters == null){
+            activeFilters = new ArrayList<>();
+        }
+
+        final View v = LayoutInflater.from(getContext()).inflate(R.layout.active_filter_item, null);
+        v.setTag(subFilterModel.getId());
+
+        TextView textView = v.findViewById(R.id.title);
+        View remove = v.findViewById(R.id.remove);
+
+        textView.setText(subFilterModel.getName());
+        remove.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if(activeFilters != null){
+                            filtersLayout.removeView(v);
+                            activeFilters.remove(v);
+
+                            filtersLayout.post(
+                                    new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            if(categoryActivity() != null){
+                                                if(filtersLayout.getChildCount() == 0){
+                                                    filtersLayout.getLayoutParams().height = 0;
+                                                    categoryActivity().reCalculatePeekValue(0);
+                                                }
+                                                else{
+                                                    categoryActivity().reCalculatePeekValue(filtersLayout.getHeight());
+                                                }
+                                            }
+                                        }
+                                    }
+                            );
+
+                            removeCheck(group, item);
+                        }
+                    }
+                }
+        );
+
+        activeFilters.add(v);
+
+        filtersLayout.addView(v);
+
+        filtersLayout.post(
+                new Runnable() {
+                    @Override
+                    public void run() {
+                        if(categoryActivity() != null){
+                            categoryActivity().reCalculatePeekValue(filtersLayout.getHeight());
+                        }
+                    }
+                }
+        );
+    }
+
+    private CategoryActivity categoryActivity(){
+        try {
+            return ((CategoryActivity) getActivity());
+        }
+        catch (Exception e){
+            return null;
+        }
+    }
+
+    private void removeActiveFilter(SubFilterModel subFilterModel) {
+        if(activeFilters != null && !activeFilters.isEmpty()){
+
+            View toRemove = null;
+
+            for (View v : activeFilters){
+                if(v != null && Objects.equals(v.getTag(), subFilterModel.getId())){
+                    toRemove = v;
+                    break;
+                }
+            }
+
+            if(toRemove != null){
+                filtersLayout.removeView(toRemove);
+                activeFilters.remove(toRemove);
+
+                Log.e("filterFragment", "view found removing");
+
+                if(filtersLayout.getChildCount() == 0){
+                    Log.e("filterFragment", "no filters remained");
+
+                    if(categoryActivity() != null){
+                        categoryActivity().reCalculatePeekValue(0);
+                    }
+                }
+
+                else{
+                    filtersLayout.post(
+                            new Runnable() {
+                                @Override
+                                public void run() {
+                                    if(categoryActivity() != null){
+                                        Log.e("filterFragment", "activity != null recalculating height");
+                                        categoryActivity().reCalculatePeekValue(filtersLayout.getHeight());
+                                    }
+                                    else{
+                                        Log.e("filterFragment", "activity == null");
+                                    }
+                                }
+                            }
+                    );
+                }
+            }
+            else{
+                Log.e("filterFragment", "didn't find view to remove");
+            }
+        }
     }
 
 

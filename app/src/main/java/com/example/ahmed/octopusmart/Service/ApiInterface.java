@@ -166,4 +166,12 @@ public interface ApiInterface {
             @Query("user_id") long userId
     );
 
+    @FormUrlEncoded
+    @POST("search/test")
+    Call<ArrayList<ProductModel>> searchProducts(
+            @Field("user_id") long userId,
+            @Field("name") String query,
+            @Field("from") long from,
+            @Field("to") long to
+    );
 }

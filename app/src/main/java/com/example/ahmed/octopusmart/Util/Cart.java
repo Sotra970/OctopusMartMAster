@@ -27,6 +27,22 @@ public class Cart {
 
     private static ArrayList<CartProductItem> productItems;
 
+    public static long getTotalPrice(Context context){
+        long price = 0;
+
+        if(productItems == null || productItems.isEmpty()){
+            productItems = getProducts(context);
+        }
+
+        if(productItems != null && !productItems.isEmpty()){
+            for(CartProductItem productItem : productItems){
+                price += productItem.getTotalPrice();
+            }
+        }
+
+        return price;
+    }
+
     public static boolean clearCart(Context context){
         // do not call on ui thread
 

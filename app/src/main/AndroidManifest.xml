@@ -39,6 +39,11 @@
         <activity android:name=".Activity.OrderCaseActivity"></activity>
 
         <activity android:name=".Activity.PasswordActivity"/>
+
+
+        <activity android:name=".Activity.SearchActivity"
+            android:windowSoftInputMode="adjustNothing"
+            />
     </application>
 
 </manifest>

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.os.Build;
+import android.util.TypedValue;
 
 import com.example.ahmed.octopusmart.R;
 
@@ -31,5 +32,11 @@ public class Utils {
 
     public static boolean isLollipopOrhigher() {
         return Build.VERSION.SDK_INT >= 21;
+    }
+
+    public static int dpToPx(int i, Context context) {
+        return (int) TypedValue.applyDimension(
+                TypedValue.COMPLEX_UNIT_DIP, i, context.getResources().getDisplayMetrics()
+        );
     }
 }

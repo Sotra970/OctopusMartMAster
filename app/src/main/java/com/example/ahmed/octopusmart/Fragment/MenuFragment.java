@@ -85,7 +85,9 @@ public class MenuFragment extends BaseFragment {
 
         view = inflater.inflate(R.layout.fragment_menu,container,false);
         ButterKnife.bind(this,view);
+
         getCategories();
+
         tab_setub();
         bind_data();
 
