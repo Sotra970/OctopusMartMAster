@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -105,7 +107,7 @@ public class HomeFragment extends BaseLoginFragment implements HomeAdapterListen
                         @Override
                         public void onFinish() {
                             getData(0);
-                            loadMoreSetup();
+                         //   loadMoreSetup();
                         }
                     });
 
@@ -124,7 +126,7 @@ public class HomeFragment extends BaseLoginFragment implements HomeAdapterListen
             @Override
             public void onScrollChanged()
             {
-                View view = (View)mScrollView.getChildAt(mScrollView.getChildCount() - 1);
+                View view = mScrollView.getChildAt(mScrollView.getChildCount() - 1);
 
                 int diff = (view.getBottom() - (mScrollView.getHeight() + mScrollView
                         .getScrollY()));
@@ -313,7 +315,7 @@ public class HomeFragment extends BaseLoginFragment implements HomeAdapterListen
         if(productModel != null){
             Intent i = new Intent(getContext(), ProductDetailsActivity.class);
             _productModel = productModel ;
-            getBaseActivity().startActivity(i);
+            ActivityCompat.startActivity(getBaseActivity(),i,ActivityOptionsCompat.makeSceneTransitionAnimation(getBaseActivity()).toBundle());
         }
     }
 

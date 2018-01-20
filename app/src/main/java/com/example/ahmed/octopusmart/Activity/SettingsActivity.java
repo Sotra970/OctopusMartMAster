@@ -68,7 +68,13 @@ public class SettingsActivity extends BaseActivity implements GenericItemClickCa
         settingsAdapter = new SettingsAdapter(getSettings(), this, this);
 
         DividerItemDecoration dividerItemDecoration =
-                new DividerItemDecoration(this, R.layout.divider_decoration);
+                new DividerItemDecoration(this
+
+
+
+
+
+                );
         dividerItemDecoration.setActivated(true);
         recyclerView.addItemDecoration(dividerItemDecoration);
 

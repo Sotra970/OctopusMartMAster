@@ -108,7 +108,6 @@ public class EmailChangeActivity extends BaseActivity {
     private boolean validate() {
         if (Validation.isEmailNotValid(newEmail,newEmailLayout)) return  false;
         if (Validation.isEmailNotValid(oldEmail,oldEmailLayout)) return false;
-        if (Validation.isEditTextEmpty(passEditText,passLayout)) return false;
-        return true ;
+        return !Validation.isEditTextEmpty(passEditText, passLayout);
     }
 }

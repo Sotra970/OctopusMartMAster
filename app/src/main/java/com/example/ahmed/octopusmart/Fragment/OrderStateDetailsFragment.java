@@ -83,7 +83,7 @@ public class OrderStateDetailsFragment extends BaseFragment {
             trackingRecyclerView.setLayoutManager(new GridLayoutManager(getContext(),3));
             trackingRecyclerView.setAdapter(trackingItemAdapter);
 
-            totalPrice.setText(getBaseActivity()._orderModel.getTotalPrice() + "" + getString(R.string.le));
+            totalPrice.setText(getBaseActivity()._orderModel.getTotalPrice() + " " + getString(R.string.le));
 
             switch (getBaseActivity()._orderModel.getStatus().getStatus())
             {

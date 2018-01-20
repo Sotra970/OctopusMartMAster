@@ -104,6 +104,6 @@ public class UserReviewAdapter extends GenericAdapter<UserReviewItem>{
 
     private boolean isExpandable( TextView summary) {
         Log.e("UserRievies" , summary.getLineCount() +"");
-        return summary.getLineCount() >2 ? true : false ;
+        return summary.getLineCount() > 2;
      }
 }

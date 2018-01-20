@@ -40,7 +40,7 @@ public class Cart {
     public static boolean addProduct(CartProductItem productItem, Context context){
         // do not call on ui thread
 
-        Log.e("cart add", "adding to : " + productItems);
+//        Log.e("cart add", "adding to : " + productItems);
 
         ObjectOutputStream out = null;
 
@@ -77,7 +77,7 @@ public class Cart {
     public static boolean removeProduct(long productId, Context context){
         // do not call on ui thread
 
-        Log.e("cart remove", "removing from : " + productItems);
+//        Log.e("cart remove", "removing from : " + productItems);
         if(productItems != null && !productItems.isEmpty()){
             ObjectOutputStream out = null;
 
@@ -115,7 +115,7 @@ public class Cart {
     }
 
     private static boolean save(Context context){
-        Log.e("cart save", "saving : " + productItems);
+//        Log.e("cart save", "saving : " + productItems);
         if(context != null){
 
             ObjectOutputStream out = null;
@@ -136,7 +136,7 @@ public class Cart {
 
             catch (@NonNull IOException e){
                 // ignore;
-                Log.e("cart save", "error : " + e.getMessage());
+//                Log.e("cart save", "error : " + e.getMessage());
             }
         }
         return false;
@@ -167,13 +167,13 @@ public class Cart {
                 catch (@NonNull IOException | ClassNotFoundException e){
                     // ignore;
                     productItems = new ArrayList<>();
-                    Log.e("cart get", "error : " + e.getMessage());
+//                    Log.e("cart get", "error : " + e.getMessage());
                 }
             }
 
         }
 
-        Log.e("cart get", "retrieved " + productItems);
+//        Log.e("cart get", "retrieved " + productItems);
 
         return productItems;
     }

@@ -148,6 +148,6 @@ public class LoadingDialogActivity extends FragmentSwitchActivity {
         void onClick();
     }
     public  enum  LoadingCases{
-       show , hide , fail ;
+       show , hide , fail
     }
 }

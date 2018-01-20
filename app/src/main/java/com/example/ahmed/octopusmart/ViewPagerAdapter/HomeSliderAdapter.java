@@ -49,7 +49,7 @@ public class HomeSliderAdapter extends PagerAdapter {
     public Object instantiateItem(ViewGroup view, int position) {
             myImageLayout = inflater.inflate(R.layout.home_slider_item, view, false);
             final HomeSliderProducts.SliderModel current  =  data.get(position) ;
-           final ImageView myImage = (ImageView) myImageLayout.findViewById(R.id.image);
+           final ImageView myImage = myImageLayout.findViewById(R.id.image);
             Log.e("HomeSliderAdapterImage" , Config.Image_URL+current.getImage());
 
 

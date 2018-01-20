@@ -59,6 +59,7 @@ public class HomeCategoryAdapter extends RecyclerView.Adapter<HomeCategoryAdapte
                 .transition(new DrawableTransitionOptions().crossFade())
                 .into(holder.mobileImg);
 
+        holder.mobileName.setText(current.getName());
 
         boolean discount = current.getDiscount() != 0L;
         if(discount){

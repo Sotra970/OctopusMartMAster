@@ -35,7 +35,7 @@ public class LangUtils {
     }
 
     public static String getDefaultLang(){
-        return "";
+        return Locale.getDefault().getDisplayLanguage();
     }
 
     public static void changeLang(String lang) {

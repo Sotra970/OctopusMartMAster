@@ -14,7 +14,6 @@
 
     <ImageView android:paddingBottom="18dp"
         android:transitionName="@string/sharedView"
-        android:src="@drawable/mobile"
         android:background="@color/white"
         android:id="@+id/fake_image"
         android:layout_width="match_parent"
@@ -26,16 +25,19 @@
 
 
 
-
-    <android.support.v4.widget.NestedScrollView
-             app:layout_behavior="@string/appbar_scrolling_view_behavior"
-             android:layout_weight="1"
-            android:background="@color/grey_100"
+        <android.support.design.widget.CoordinatorLayout
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-             android:scrollbars="none"
-            android:fillViewport="true"
-            >
+            android:layout_height="match_parent">
+
+            <android.support.v4.widget.NestedScrollView
+                android:layout_weight="1"
+                android:background="@color/grey_100"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scrollbars="none"
+                android:fillViewport="true"
+                >
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -67,6 +69,14 @@
 
                     <include layout="@layout/product_details_spec"/>
 
+
+
+                    <!--// similar -->
+                    <android.support.v7.widget.RecyclerView
+                        android:layout_marginTop="16dp"
+                        android:id="@+id/similar_products"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
                     <!-- product rating -->
 
                     <include layout="@layout/product_details_rate"/>
@@ -75,7 +85,7 @@
                     <include layout="@layout/product_details_review"/>
                     <!--add review-->
                     <LinearLayout
-                        android:layout_marginBottom="36dp"
+                        android:layout_marginBottom="64dp"
                         android:elevation="1dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -161,52 +171,55 @@
 
 
                 </LinearLayout>
-        </android.support.v4.widget.NestedScrollView>
+            </android.support.v4.widget.NestedScrollView>
 
 
-    <LinearLayout
-        android:elevation="3dp"
-        android:layout_gravity="bottom"
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <View
-            android:background="@drawable/shadow_grad"
-            android:layout_width="wrap_content"
-            android:layout_height="2dp"/>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="12dp"
-            android:orientation="horizontal"
-            android:gravity="center"
-            android:id="@+id/add_cart"
-            android:background="@color/colorAccent"
-            android:layout_gravity="bottom">
+            <LinearLayout
+                android:elevation="3dp"
+                android:layout_gravity="bottom"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <View
+                    android:background="@drawable/shadow_grad"
+                    android:layout_width="wrap_content"
+                    android:layout_height="2dp"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="12dp"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:id="@+id/add_cart"
+                    android:background="@color/colorAccent"
+                    android:layout_gravity="bottom">
 
-            <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/ic_add_shopping_cart_black_48dp"
-                android:tint="@color/white"
-                android:id="@+id/cart_image"
-                />
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/ic_add_shopping_cart_black_48dp"
+                        android:tint="@color/white"
+                        android:id="@+id/cart_image"
+                        />
 
-            <TextView
-                style="@style/text_bold"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/add_to_cart"
-                android:layout_marginStart="12dp"
-                android:textColor="@color/white"
-                android:textSize="@dimen/large_text_size"
-                android:textStyle="bold"
-                android:id="@+id/add_cart_text"
-                />
+                    <TextView
+                        style="@style/text_bold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/add_to_cart"
+                        android:layout_marginStart="12dp"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/large_text_size"
+                        android:textStyle="bold"
+                        android:id="@+id/add_cart_text"
+                        />
 
-        </LinearLayout>
-    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
 
+            <include layout="@layout/layout_fragment_container"/>
+
+        </android.support.design.widget.CoordinatorLayout>
     <android.support.design.widget.FloatingActionButton
         app:elevation="3dp"
         android:background="@drawable/white_circle"
@@ -223,6 +236,5 @@
         android:src="@drawable/ic_favorite_border_black_24dp"
         android:tint="@color/colorAccent"
         />
-    <include layout="@layout/layout_fragment_container"/>
 
 </android.support.design.widget.CoordinatorLayout>

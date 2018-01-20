@@ -7,8 +7,8 @@ import com.example.ahmed.octopusmart.Model.ServiceModels.SubFilterModel;
  * Created by sotra on 4/6/2017.
  */
 public interface FilterListener {
-   public void itemClicked(FilterModel filter);
-   public void itemChildClicked(SubFilterModel subFilterModel, boolean checked);
+   void itemClicked(FilterModel filter);
+   void itemChildClicked(SubFilterModel subFilterModel, boolean checked);
 
 
 }

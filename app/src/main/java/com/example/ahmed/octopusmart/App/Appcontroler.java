@@ -41,9 +41,9 @@ public class Appcontroler extends MultiDexApplication {
     public void onCreate() {
         super.onCreate();
         mInstance = this;
-        String lang = LangUtils.getLanguage();
-        LangUtils.changeLangchangelangNoRestart(lang);
-//        LangUtils.changeLangchangelangNoRestart("ar");
+//        String lang = LangUtils.getLanguage();
+//        LangUtils.changeLangchangelangNoRestart(lang);
+        LangUtils.changeLangchangelangNoRestart("ar");
 //        Log.e("App" , "oncreate");
 
         CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
@@ -109,16 +109,16 @@ public class Appcontroler extends MultiDexApplication {
     public static boolean isMine(long id) {
         if (!isUserSigned())return false;
         else
-        return mInstance.getUserId()== id;
+        return getUserId()== id;
     }
 
 
     static  public long getUserId() {
         if (isUserSigned()){
-//            return  Appcontroler.getInstance().getPrefManager().getUser().getId() ;
-            return  2 ;
+            return  Appcontroler.getInstance().getPrefManager().getUser().getId() ;
+
         }else {
-            return 2;
+            return 0;
         }
 
     }

@@ -28,7 +28,7 @@ import butterknife.ButterKnife;
 
 public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHolder> {
 
-    private List<ProductModel> productModelArrayList= new ArrayList<>();
+    public List<ProductModel> productModelArrayList= new ArrayList<>();
     LayoutInflater inflater;
     Context context;
     private Listener mListener;

@@ -2,10 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://C:\Users\Ahmed Naeem\Projects\OctopusMartMAster\OctopusMart.iml" filepath="C:\Users\Ahmed Naeem\Projects\OctopusMartMAster\OctopusMart.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/OctopusMartMAster.iml" filepath="$PROJECT_DIR$/.idea/OctopusMartMAster.iml" />
+      <module fileurl="file://$PROJECT_DIR$/OctopusMart.iml" filepath="$PROJECT_DIR$/OctopusMart.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://C:\Users\Ahmed Naeem\Projects\OctopusMartMAster\app\app.iml" filepath="C:\Users\Ahmed Naeem\Projects\OctopusMartMAster\app\app.iml" />
     </modules>
   </component>
 </project>

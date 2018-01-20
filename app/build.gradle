@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 26
-   defaultConfig {
+    defaultConfig {
         applicationId "com.example.ahmed.octopusmart"
         minSdkVersion 19
         targetSdkVersion 26

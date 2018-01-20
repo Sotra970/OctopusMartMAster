@@ -72,7 +72,7 @@ public class CAdapter extends GenericAdapter<CartProductItem> {
                                     @Override
                                     public void onClick(View v) {
 
-                                    Appcontroler.getInstance().getExecutorService()
+                                    Appcontroler.getExecutorService()
                                                 .submit(
                                                         new Runnable() {
                                                             @Override
@@ -139,7 +139,7 @@ public class CAdapter extends GenericAdapter<CartProductItem> {
             textView.setText(String.valueOf(totalPrice));
         }
 
-        Appcontroler.getInstance().getExecutorService()
+        Appcontroler.getExecutorService()
                 .submit(
                         new Runnable() {
                             @Override

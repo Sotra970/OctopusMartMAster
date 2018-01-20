@@ -1,7 +1,5 @@
 package com.example.ahmed.octopusmart.Fragment;
 
-import android.app.Activity;
-import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -9,18 +7,15 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
-import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.ahmed.octopusmart.Activity.Base.RequestActivity;
@@ -42,7 +37,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 import static com.example.ahmed.octopusmart.Activity.Base.BaseActivity.history_code;
-import static com.example.ahmed.octopusmart.Activity.Base.BaseActivity.login_code;
+import static com.example.ahmed.octopusmart.Activity.Base.BaseActivity.menu_login_code;
 import static com.example.ahmed.octopusmart.Activity.Base.BaseActivity.traking_code;
 
 /**
@@ -231,7 +226,7 @@ public class MenuFragment extends BaseFragment {
     @OnClick(R.id.user_img_layout)
     void startProfile(){
        if (!Appcontroler.isUserSigned()){
-           startLogin(userImg, R.drawable.ic_account_circle_black_48dp, R.color.colorPrimary ,login_code);
+           startLogin(userImg, R.drawable.ic_account_circle_black_48dp, R.color.colorPrimary , menu_login_code);
        }
     }
 
@@ -243,7 +238,8 @@ public class MenuFragment extends BaseFragment {
                     shared, getString(R.string.circle_morph_tansition));
             FabTransform.addExtras(intent,
                     ContextCompat.getColor(getActivity(), color),icon);
-            getBaseActivity().startActivityForResult(intent,code , options.toBundle() );
+
+            ActivityCompat.startActivityForResult(getBaseActivity(),intent,code , options.toBundle() );
         }
     }
 
@@ -278,7 +274,7 @@ public class MenuFragment extends BaseFragment {
         Log.e("MenuFragment" , "onActivityResult");
         if (resultCode == 200)
        switch (requestCode){
-           case login_code : {
+           case menu_login_code: {
                bind_data();
                hideMenu();
                break;

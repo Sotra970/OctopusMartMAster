@@ -33,12 +33,12 @@
         <activity android:name=".Activity.ChooseAddressActivity" />
         <activity android:name=".Activity.EmailChangeActivity" />
         <activity
-            android:windowSoftInputMode="adjustPan"
             android:name=".Activity.ProductDetailsActivity"
-            android:theme="@style/AppTheme.Transparent.ProductDetails" />
-        <activity android:name=".Activity.OrderCaseActivity"></activity>
-
-        <activity android:name=".Activity.PasswordActivity"/>
+            android:theme="@style/AppTheme.Transparent.ProductDetails"
+            android:windowSoftInputMode="adjustPan" />
+        <activity android:name=".Activity.OrderCaseActivity" />
+        <activity android:name=".Activity.PasswordActivity" />
+        <activity android:name=".Activity.OrderStateDetailsActivity"></activity>
     </application>
 
 </manifest>

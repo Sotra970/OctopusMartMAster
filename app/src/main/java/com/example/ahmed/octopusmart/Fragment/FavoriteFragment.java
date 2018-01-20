@@ -3,17 +3,19 @@ package com.example.ahmed.octopusmart.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.ahmed.octopusmart.Activity.Base.BaseActivity;
 import com.example.ahmed.octopusmart.Activity.ProductDetailsActivity;
 import com.example.ahmed.octopusmart.App.Appcontroler;
 import com.example.ahmed.octopusmart.Interfaces.LoadingActionClick;
-import com.example.ahmed.octopusmart.Model.ServiceModels.Favorite.FavoriteModel;
 import com.example.ahmed.octopusmart.Model.ServiceModels.ProductModel;
 import com.example.ahmed.octopusmart.RecyclerAdapter.FavoriteAdapter;
 import com.example.ahmed.octopusmart.R;
@@ -69,11 +71,55 @@ public class FavoriteFragment extends BaseLoginFragment implements FavoriteAdapt
     }
 
 
+    public void onTabSelected() {
+        Log.e("fav" , "onTabSelected") ;
+        getData();
+    }
+
+    void remove_fav( long id ){
+        int pos = -1 ;
+        for(ProductModel productModel : favoriteAdapter.productModelArrayList){
+            pos++ ;
+            if (productModel.getId() == id){
+                break;
+            }
+        }
+        if (pos != -1 )
+        favoriteAdapter.remove(pos);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Log.e("favFragment" , "onActivityResult " + requestCode  +"  " + resultCode +" data " + data);
+        if (requestCode == 404 && data !=null){
+            ProductModel productModel = (ProductModel) data.getExtras().getSerializable("product");
+            if (!productModel.isFav()){
+                remove_fav( productModel.getId());
+            }
+        }
+
+        if (requestCode == BaseActivity.fav_login_code  && resultCode==200){
+            getData();
+        }
+
+    }
+
+
+
     void getData(){
 
-       showLoading(show,null);
 
-        Call<ArrayList<ProductModel>> call = Injector.Api().getFavoriteData(Appcontroler.getInstance().getUserId());
+        if (!Appcontroler.isUserSigned()){
+            getBaseActivity().startLogin();
+            return;
+        }
+
+
+       showLoading(show,null);
+        favoriteAdapter.update(new ArrayList<ProductModel>());
+
+        Call<ArrayList<ProductModel>> call = Injector.Api().getFavoriteData(Appcontroler.getUserId());
 
         call.enqueue(new CallbackWithRetry<ArrayList<ProductModel>>(Injector.Retry_count, Injector.Retry_Time_Offset, call, new onRequestFailure() {
             @Override
@@ -133,12 +179,20 @@ public class FavoriteFragment extends BaseLoginFragment implements FavoriteAdapt
         });
     }
     @Override
-    public void onFavoriteClicked(ProductModel productModel , View shared) {
+    public void onFavoriteClicked(ProductModel productModel , View sharedView) {
 
         if(productModel != null){
             Intent i = new Intent(getContext(), ProductDetailsActivity.class);
             getBaseActivity()._productModel = productModel ;
-            getBaseActivity().startActivity(i , shared , getActivity()) ;
+            ActivityOptionsCompat options ;
+            if (sharedView!=null)
+                options = ActivityOptionsCompat.makeSceneTransitionAnimation(
+                        getActivity(), sharedView, getString(R.string.sharedView));
+            else
+                options = ActivityOptionsCompat.makeSceneTransitionAnimation(
+                        getActivity());
+
+            ActivityCompat.startActivityForResult(getActivity(), i , 404, options.toBundle());
         }
 
     }

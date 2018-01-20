@@ -95,7 +95,7 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         return  -1 ;
     }
 
-    private boolean showLoader = true;
+    private boolean showLoader = false;
     public void showLoading(boolean status) {
         showLoader = status;
         notifyDataSetChanged();

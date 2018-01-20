@@ -119,7 +119,7 @@ public class CategoryActivity extends BaseActivity
             }
         });
 
-        refresh();
+        refresh(false);
     }
 
 
@@ -203,9 +203,10 @@ public class CategoryActivity extends BaseActivity
         Log.e("categoryAc" ,"itemChildClicked" ) ;
         switchBottomSheet();
         checkFilter(subFilterModel , checked) ;
-            refresh();
+            refresh(true);
     }
-    void refresh(){
+    void refresh(boolean reload){
+        if (reload)
         showLoading(show,null);
         productModels = new ArrayList<>() ;
         adapter.clear();

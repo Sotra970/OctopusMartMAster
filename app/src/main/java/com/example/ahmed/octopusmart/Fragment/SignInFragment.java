@@ -103,8 +103,7 @@ public class SignInFragment extends BaseLoginFragment {
 
     boolean validate(){
         if (Validation.isEditTextEmpty(emailEditText , emailLayout)) return false;
-        if (Validation.isEditTextEmpty(passwordEditText , passwordLayout)) return false;
-        return  true ;
+        return !Validation.isEditTextEmpty(passwordEditText, passwordLayout);
     }
 
 }

@@ -64,7 +64,7 @@ public class FilterFragment extends Fragment {
 
         res = inflater.inflate(R.layout.fragment_category_filter, container, false);
         ButterKnife.bind(this , res) ;
-        expandableListView = (ExpandableListView) res.findViewById(R.id.expandableListView);
+        expandableListView = res.findViewById(R.id.expandableListView);
 
         expandableListAdapter = new com.example.ahmed.octopusmart.RecyclerAdapter.FilterAdapter(getContext(), filterModels);
         expandableListView.setAdapter(expandableListAdapter);

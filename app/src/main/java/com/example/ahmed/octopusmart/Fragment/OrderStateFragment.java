@@ -1,5 +1,6 @@
 package com.example.ahmed.octopusmart.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -8,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.ahmed.octopusmart.Activity.OrderStateDetailsActivity;
 import com.example.ahmed.octopusmart.App.Appcontroler;
 import com.example.ahmed.octopusmart.Interfaces.LoadingActionClick;
 import com.example.ahmed.octopusmart.Model.ServiceModels.Tracking.OrderTrackingDetailsModel;
@@ -76,8 +78,8 @@ public class OrderStateFragment extends BaseFragment implements HistoryAdapter.L
 
         Call<ArrayList<OrderTrackingDetailsModel>> call ;
 
-         call =  orderCase == OrderCases.tracking ? Injector.Api().getTrackingData(Appcontroler.getInstance().getUserId())
-          : Injector.Api().getHistoryData(Appcontroler.getInstance().getUserId());
+         call =  orderCase == OrderCases.tracking ? Injector.Api().getTrackingData(Appcontroler.getUserId())
+          : Injector.Api().getHistoryData(Appcontroler.getUserId());
 
         call.enqueue(new CallbackWithRetry<ArrayList<OrderTrackingDetailsModel>>(Injector.Retry_count, Injector.Retry_Time_Offset, call, new onRequestFailure() {
             @Override
@@ -121,7 +123,7 @@ public class OrderStateFragment extends BaseFragment implements HistoryAdapter.L
     @Override
     public void onOrderClicked(OrderTrackingDetailsModel model) {
         getBaseActivity()._orderModel = model ;
-        getBaseActivity().showFragment(OrderStateDetailsFragment.getInstance(),true,R.anim.fade_in , R.anim.fade_out);
+        startActivity(new Intent(getContext()  , OrderStateDetailsActivity.class));
     }
 
 

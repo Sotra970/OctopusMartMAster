@@ -43,13 +43,15 @@ public class HomeActivity extends BaseActivity implements MenuFragment.MenuTabsL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         ButterKnife.bind(this);
+        _favoriteFragment = new FavoriteFragment();
         menu_bottom_sheet_setub();
         toolbar_action_setup();
 
-         titlePagerAdapter = new TitlePagerAdapter(getSupportFragmentManager());
+
+        titlePagerAdapter = new TitlePagerAdapter(getSupportFragmentManager());
         titlePagerAdapter.addFragment(new HomeFragment()," ");
         titlePagerAdapter.addFragment(new CartFragment()," ");
-        titlePagerAdapter.addFragment(new FavoriteFragment()," ");
+        titlePagerAdapter.addFragment(_favoriteFragment," ");
         viewPager.setAdapter(titlePagerAdapter);
 
     }
@@ -120,6 +122,10 @@ public class HomeActivity extends BaseActivity implements MenuFragment.MenuTabsL
             hideMenu();
             viewPager.setCurrentItem(tab,true);
         }
+
+        if (tab == 2 ){
+            _favoriteFragment.onTabSelected();
+        }
     }
 
     @Override
@@ -129,12 +135,11 @@ public class HomeActivity extends BaseActivity implements MenuFragment.MenuTabsL
         }else {
             hideMenu();
         }
+
+
     }
     @Override
     public void onMenuTabUnSelected(int tab) {
-
-
-
 
     }
 
@@ -143,6 +148,8 @@ public class HomeActivity extends BaseActivity implements MenuFragment.MenuTabsL
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         Log.e("HomeActivity" , "onActivityResult");
+        if (_favoriteFragment !=null)
+        _favoriteFragment.onActivityResult(requestCode , resultCode , data);
 
     }
 }

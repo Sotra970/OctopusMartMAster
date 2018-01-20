@@ -147,10 +147,10 @@ public class UplodaImagesActivity extends LoadingDialogActivity {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         /// select from gallery section
-        if (requestCode == FilePickerConst.REQUEST_CODE_DOC && resultCode == this.RESULT_OK && data!=null) {
+        if (requestCode == FilePickerConst.REQUEST_CODE_DOC && resultCode == RESULT_OK && data!=null) {
             super.onActivityResult(requestCode , resultCode , data);
         }
-        if (requestCode == FilePickerConst.REQUEST_CODE_PHOTO && resultCode == this.RESULT_OK && data!=null) {
+        if (requestCode == FilePickerConst.REQUEST_CODE_PHOTO && resultCode == RESULT_OK && data!=null) {
             photoPaths = new ArrayList<>();
             photoPaths.addAll(data.getStringArrayListExtra(FilePickerConst.KEY_SELECTED_MEDIA));
             add_to_u_crop();

@@ -13,7 +13,7 @@ public class CategoryProductsRequestBody {
      long cat_id ;
     int from;
     int to ;
-    final  long user_id = Appcontroler.getInstance().getUserId();
+    final  long user_id = Appcontroler.getUserId();
     public CategoryProductsRequestBody(ArrayList<Integer> sub_filter_ids, long cat_id, int form, int to) {
         this.sub_filter_ids = sub_filter_ids;
         this.cat_id = cat_id;

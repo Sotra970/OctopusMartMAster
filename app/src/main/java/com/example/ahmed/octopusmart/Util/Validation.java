@@ -114,10 +114,7 @@ public class Validation {
     }
 
     static public boolean isName(String name){
-        if (!name.matches("^[a-zA-Z]+$"))
-            return false;
-        else
-            return true;
+        return name.matches("^[a-zA-Z]+$");
     }
 
     static public boolean isEmailNotValid(EditText editText){
@@ -139,13 +136,7 @@ public class Validation {
     static public boolean isEmailMatch(EditText editText){
         if (!isEditTextEmpty(editText))
         {
-            if (!editText.getText().toString().matches("^\\w+([-+.']\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*$"))
-            {
-
-                return false;
-            }
-            else
-                return true;
+            return editText.getText().toString().matches("^\\w+([-+.']\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*$");
         }else return false ;
     }
 

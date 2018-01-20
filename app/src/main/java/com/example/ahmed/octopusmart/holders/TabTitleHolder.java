@@ -26,10 +26,10 @@ public class TabTitleHolder {
         view = inflater.inflate(R.layout.tab_item, null);
 //        view.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
 //        view.setLayoutParams(new ViewGroup.LayoutParams(new Spec(context).WindowRec().x, ViewGroup.LayoutParams.MATCH_PARENT));
-          title = (TextView) view.findViewById(R.id.tab_tile);
+          title = view.findViewById(R.id.tab_tile);
         title.setText(text);
 
-        tabImage = (ImageView) view.findViewById(R.id.tab_iccon);
+        tabImage = view.findViewById(R.id.tab_iccon);
         tabImage.setImageResource(icon);
     }
     public View getView (){

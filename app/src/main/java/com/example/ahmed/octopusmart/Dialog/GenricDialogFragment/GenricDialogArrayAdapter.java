@@ -67,7 +67,7 @@ public abstract class GenricDialogArrayAdapter<T> extends RecyclerView.Adapter<G
 
     private ViewHolder(View rootView) {
       super(rootView);
-      textView = (TextView) rootView.findViewById(R.id.row_text);
+      textView = rootView.findViewById(R.id.row_text);
     }
 
 

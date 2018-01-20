@@ -53,7 +53,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
         final OrderTrackingDetailsModel current = OrderTrackingDetailsModelArrayList.get(position);
 
         Glide.with(context)
-                .load(Config.Image_URL + current.getProducts().get(0))
+                .load(Config.Image_URL + current.getProducts().get(0).getImages().get(0))
                 .apply(new RequestOptions().fitCenter())
                 .apply(new RequestOptions().diskCacheStrategy(DiskCacheStrategy.ALL))
                 .transition(new DrawableTransitionOptions().crossFade())

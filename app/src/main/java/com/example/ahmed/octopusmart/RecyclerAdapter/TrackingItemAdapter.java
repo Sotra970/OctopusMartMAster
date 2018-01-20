@@ -54,18 +54,10 @@ public class TrackingItemAdapter extends RecyclerView.Adapter<TrackingItemAdapte
     public void onBindViewHolder(ViewHolder holder, int position) {
         ProductModel current = trackingModelArrayList.get(position);
 
-       /* Glide.with(context)
-                .load(Config.img_url + shopsModelsList.get(position).getShopPictureLink())
-                .centerCrop()
-                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                .crossFade()
-                .placeholder(R.mipmap.ic_launcher)
-                .into(holder.shopPicturelink);
-*/
 
 
         Glide.with(context)
-                .load(Config.Image_URL + current.getImages())
+                .load(Config.Image_URL + current.getImages().get(0))
                 .apply(new RequestOptions().fitCenter())
                 .apply(new RequestOptions().diskCacheStrategy(DiskCacheStrategy.ALL))
                 .transition(new DrawableTransitionOptions().crossFade())

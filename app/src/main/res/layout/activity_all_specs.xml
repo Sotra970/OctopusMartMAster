@@ -10,7 +10,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <include layout="@layout/mtoolbar"/>
+        <include layout="@layout/toolbar_light"/>
 
         <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"

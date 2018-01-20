@@ -69,7 +69,7 @@ public class CartFragment extends BaseLoginFragment
         if(isAddressAvailable()){
 
 
-            Appcontroler.getInstance().getExecutorService()
+            Appcontroler.getExecutorService()
                     .submit(
                             new Runnable() {
                                 @Override
@@ -148,7 +148,7 @@ public class CartFragment extends BaseLoginFragment
                                                                         showNoDataLayout(true);
                                                                     }
 
-                                                                    Appcontroler.getInstance().getExecutorService()
+                                                                    Appcontroler.getExecutorService()
                                                                             .submit(
                                                                                     new Runnable() {
                                                                                         @Override
@@ -263,7 +263,7 @@ public class CartFragment extends BaseLoginFragment
 
     private void load(){
         showLoading();
-        Appcontroler.getInstance().getExecutorService()
+        Appcontroler.getExecutorService()
                 .submit(
                         new Runnable() {
                             @Override

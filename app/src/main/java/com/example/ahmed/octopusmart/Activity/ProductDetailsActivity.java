@@ -21,16 +21,21 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.ahmed.octopusmart.Activity.Base.BaseActivity;
+import com.example.ahmed.octopusmart.Activity.Base.RequestActivity;
 import com.example.ahmed.octopusmart.App.Appcontroler;
 import com.example.ahmed.octopusmart.App.Config;
 import com.example.ahmed.octopusmart.Interfaces.GenericItemClickCallback;
+import com.example.ahmed.octopusmart.Interfaces.HomeAdapterListener;
 import com.example.ahmed.octopusmart.Interfaces.LoadingActionClick;
 import com.example.ahmed.octopusmart.Model.CartProductItem;
+import com.example.ahmed.octopusmart.Model.ServiceModels.CatModel;
+import com.example.ahmed.octopusmart.Model.ServiceModels.ProductModel;
 import com.example.ahmed.octopusmart.Model.ServiceModels.SubFilterModel;
 import com.example.ahmed.octopusmart.Model.ServiceModels.UserModel;
 import com.example.ahmed.octopusmart.Model.ServiceModels.UserRateModel;
 import com.example.ahmed.octopusmart.Model.UserReviewItem;
 import com.example.ahmed.octopusmart.R;
+import com.example.ahmed.octopusmart.RecyclerAdapter.HomeCategoryAdapter;
 import com.example.ahmed.octopusmart.RecyclerAdapter.ProductSpecsAdapter;
 import com.example.ahmed.octopusmart.RecyclerAdapter.SliderAdapter;
 import com.example.ahmed.octopusmart.RecyclerAdapter.UserReviewAdapter;
@@ -71,9 +76,13 @@ public class ProductDetailsActivity extends BaseActivity {
 
     @OnClick(R.id.back_btt)
     void onBack(){
-        onBackPressed();
+        supportFinishAfterTransition();
     }
 
+    @Override
+    public void onBackPressed() {
+        supportFinishAfterTransition();
+    }
 
     @BindView(R.id.collabse_toolbar_child)
     View collabse_toolbar_child  ;
@@ -91,13 +100,31 @@ public class ProductDetailsActivity extends BaseActivity {
     }
 
 
+
+    ProductModel product ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_details);
+        product = _productModel ;
         ButterKnife.bind(this);
-        initData();
 
+        Glide.with(this)
+                .load(Config.Image_URL+product.getImages().get(0))
+                .into(fake_image);
+
+        headar_bind();
+       if (savedInstanceState ==null){
+           get_product_full_data(new  SuccessListener(){
+               @Override
+               public void onFinish() {
+                   initData();
+               }
+           }) ;
+       }else {
+           product = (ProductModel) savedInstanceState.getSerializable("product");
+           initData();
+       }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getWindow().getSharedElementEnterTransition().addListener(new Transition.TransitionListener() {
                 @Override
@@ -131,13 +158,40 @@ public class ProductDetailsActivity extends BaseActivity {
         }
 
 
+    }
 
+    private void get_product_full_data(final SuccessListener successListener) {
+        //
+        showLoading(LoadingCases.show , null);
+        Call<ProductModel> call = Injector.Api().getProduct(
+                product.getId() ,
+                Appcontroler.getUserId()
+        ) ;
+        call.enqueue(new CallbackWithRetry<ProductModel>(call, new onRequestFailure() {
+            @Override
+            public void onFailure() {
+                showLoading(LoadingCases.fail, new LoadingActionClick() {
+                    @Override
+                    public void OnClick() {
+                        get_product_full_data(successListener);
+                    }
+                });
+            }
+        }) {
+            @Override
+            public void onResponse(Call<ProductModel> call, Response<ProductModel> response) {
+                if (response.isSuccessful()){
+                    product = response.body() ;
+                    successListener.onFinish();
+                }
+                showLoading(LoadingCases.hide , null);
+            }
+        });
     }
 
 
-
     private void setup_add_rate() {
-        UserRateModel myRating = _productModel.getMyRate();
+        UserRateModel myRating = product.getMyRate();
         Log.e("myrate" , myRating +"");
         if (myRating==null)
         {
@@ -162,7 +216,7 @@ public class ProductDetailsActivity extends BaseActivity {
 
     @OnClick(R.id.add_cart)
     void switchCart(){
-        long id = _productModel.getId();
+        long id = product.getId();
         if(Cart.isProductCarted(id)){
             removeFromCart();
         }
@@ -188,12 +242,12 @@ public class ProductDetailsActivity extends BaseActivity {
 
         cartText.setText(R.string.added_to_cart);
 
-        Appcontroler.getInstance().getExecutorService()
+        Appcontroler.getExecutorService()
                 .submit(
                         new Runnable() {
                             @Override
                             public void run() {
-                                Cart.addProduct(new CartProductItem(_productModel), ProductDetailsActivity.this);
+                                Cart.addProduct(new CartProductItem(product), ProductDetailsActivity.this);
                             }
                         }
                 );
@@ -212,12 +266,12 @@ public class ProductDetailsActivity extends BaseActivity {
 
         cartText.setText(R.string.add_to_cart);
 
-        Appcontroler.getInstance().getExecutorService()
+        Appcontroler.getExecutorService()
                 .submit(
                         new Runnable() {
                             @Override
                             public void run() {
-                                Cart.removeProduct(_productModel.getId(), ProductDetailsActivity.this);
+                                Cart.removeProduct(product.getId(), ProductDetailsActivity.this);
                             }
                         }
                 );
@@ -226,7 +280,7 @@ public class ProductDetailsActivity extends BaseActivity {
     private void addRate(final double rating){
         try {
             long userId = getUserId();
-            long productId = _productModel.getId();
+            long productId = product.getId();
             Call<ResponseBody> call =
                     Injector.Api().addRate(userId, productId, rating);
 
@@ -256,7 +310,7 @@ public class ProductDetailsActivity extends BaseActivity {
 
 
     private void initData() {
-            if (_productModel == null) finish();
+            if (product == null) finish();
             else bind();
     }
 
@@ -310,7 +364,7 @@ public class ProductDetailsActivity extends BaseActivity {
 
     @OnClick(R.id.add_fav)
     void switchFav(){
-        if(_productModel.isFav()){
+        if(product.isFav()){
             removeFav();
         }
         else{
@@ -321,7 +375,7 @@ public class ProductDetailsActivity extends BaseActivity {
     private void addFav() {
         long userId = getUserId();
         if(userId != -1){
-            Call<ResponseBody> call = Injector.Api().addFav(userId, _productModel.getId());
+            Call<ResponseBody> call = Injector.Api().addFav(userId, product.getId());
 
             add_fav.setImageResource(R.drawable.ic_favorite_black_24dp);
 
@@ -338,7 +392,7 @@ public class ProductDetailsActivity extends BaseActivity {
                         @Override
                         public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                             if(response.isSuccessful()){
-                                _productModel.setFav(true);
+                                product.setFav(true);
                             }
                         }
                     }
@@ -349,7 +403,7 @@ public class ProductDetailsActivity extends BaseActivity {
     private void removeFav() {
         long userId = getUserId();
         if(userId != -1){
-            Call<ResponseBody> call = Injector.Api().removeFav(userId, _productModel.getId());
+            Call<ResponseBody> call = Injector.Api().removeFav(userId, product.getId());
 
             add_fav.setImageResource(R.drawable.ic_favorite_border_black_24dp);
 
@@ -366,7 +420,7 @@ public class ProductDetailsActivity extends BaseActivity {
                         @Override
                         public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                             if(response.isSuccessful()){
-                                _productModel.setFav(false);
+                                product.setFav(false);
                             }
                         }
                     }
@@ -380,32 +434,39 @@ public class ProductDetailsActivity extends BaseActivity {
     @BindView(R.id.add_cart_text)
     TextView cartText;
 
+
+    void headar_bind(){
+
+        toolbar_title.setText(product.getName());
+        SliderAdapter sliderAdapter = new SliderAdapter(this, product.getImages());
+        imagesPager.setAdapter(sliderAdapter);
+        product_detail_images_indicator.setViewPager(imagesPager);
+
+    }
+
     private void bindStaticData() {
-        if(_productModel != null){
-
-            toolbar_title.setText(_productModel.getName());
-            SliderAdapter sliderAdapter = new SliderAdapter(this, _productModel.getImages());
-            imagesPager.setAdapter(sliderAdapter);
-            product_detail_images_indicator.setViewPager(imagesPager);
+        if(product != null){
 
 
-            productTitle.setText(_productModel.getName());
+            similar_setup();
 
-            if(_productModel.isFav()){
+            productTitle.setText(product.getName());
+
+            if(product.isFav()){
                 add_fav.setImageResource(R.drawable.ic_favorite_black_24dp);
             }
             else{
                 add_fav.setImageResource(R.drawable.ic_favorite_border_black_24dp);
             }
 
-            boolean discount = _productModel.getDiscount() != 0L;
+            boolean discount = product.getDiscount() != 0L;
 
             if(discount){
                 normalLayout.setVisibility(View.GONE);
                 discountLayout.setVisibility(View.VISIBLE);
 
-                long oldPrice = _productModel.getPrice();
-                long perc = _productModel.getDiscount();
+                long oldPrice = product.getPrice();
+                long perc = product.getDiscount();
 
                 long newPrice = (oldPrice * perc )/ 100;
                 newPrice = oldPrice - newPrice ;
@@ -419,11 +480,11 @@ public class ProductDetailsActivity extends BaseActivity {
                 discountLayout.setVisibility(View.GONE);
                 normalLayout.setVisibility(View.VISIBLE);
 
-                long price = _productModel.getPrice();
+                long price = product.getPrice();
                 priceText.setText(price + " " + getString(R.string.le));
             }
 
-            if(Cart.isProductCarted(_productModel.getId())){
+            if(Cart.isProductCarted(product.getId())){
                 cartImage.setImageResource(
                         R.drawable.ic_check_black_48dp
                 );
@@ -450,7 +511,7 @@ public class ProductDetailsActivity extends BaseActivity {
                 cartText.setText(R.string.add_to_cart);
             }
 
-            UserModel supplier = _productModel.getSupplier();
+            UserModel supplier = product.getSupplier();
             if(supplier != null){
                 storeTitle.setText(supplier.getName());
                 Glide.with(this)
@@ -459,7 +520,7 @@ public class ProductDetailsActivity extends BaseActivity {
                         .into(storeImage);
             }
 
-            UserRateModel myRating = _productModel.getMyRate();
+            UserRateModel myRating = product.getMyRate();
             Log.e("myrate" , myRating +"");
             if(myRating != null){
                 try {
@@ -469,7 +530,7 @@ public class ProductDetailsActivity extends BaseActivity {
             }else setup_add_rate();
 
 
-            UserRateModel ratings = _productModel.getUserRates();
+            UserRateModel ratings = product.getUserRates();
             if(ratings != null){
                 double rate = ratings.getRate();
 
@@ -486,6 +547,33 @@ public class ProductDetailsActivity extends BaseActivity {
 
             bindSpecs();
         }
+    }
+
+    @BindView(R.id.similar_products)
+    RecyclerView similar_list ;
+    private void similar_setup() {
+        HomeCategoryAdapter adapter= new HomeCategoryAdapter(product.getSimilar(), getApplicationContext(), new HomeAdapterListener() {
+            @Override
+            public void onProductClicked(ProductModel productModel, View shared, int postion) {
+                _productModel = productModel ;
+                startActivity(new Intent(getApplicationContext() , ProductDetailsActivity.class) , shared , ProductDetailsActivity.this);
+            }
+
+            @Override
+            public void onSliderProductClicked(ProductModel productModel, View shared, int postion) {
+
+            }
+
+            @Override
+            public void onCategoryHeadarClicked(CatModel catModel, View shared, int postion) {
+
+            }
+        });
+
+        similar_list.setAdapter(adapter);
+        similar_list.setLayoutManager(new LinearLayoutManager(getApplicationContext() , LinearLayoutManager.HORIZONTAL , false));
+
+
     }
 
     @BindView(R.id.product_details_review_recycler)
@@ -531,7 +619,7 @@ public class ProductDetailsActivity extends BaseActivity {
     private ProductSpecsAdapter productSpecsAdapter;
 
     private void bindSpecs() {
-        ArrayList<SubFilterModel> specs = _productModel.getMoreData();
+        ArrayList<SubFilterModel> specs = product.getMoreData();
         productSpecsAdapter = new ProductSpecsAdapter(
                 specs,
                 this,
@@ -550,7 +638,7 @@ public class ProductDetailsActivity extends BaseActivity {
         long userId = getUserId();
 
         Call<ArrayList<UserReviewItem>> commentsResponseCall =
-                Injector.Api().getComments(_productModel.getId());
+                Injector.Api().getComments(product.getId());
 
         commentsResponseCall.enqueue(
                 new CallbackWithRetry<ArrayList<UserReviewItem>>(
@@ -600,7 +688,7 @@ public class ProductDetailsActivity extends BaseActivity {
             showLoading(LoadingCases.show, null);
 
             long userId = getUserId();
-            long productId = _productModel.getId();
+            long productId = product.getId();
 
             Call<ResponseBody> call =
                     Injector.Api().addComment(userId, productId, review);
@@ -641,7 +729,7 @@ public class ProductDetailsActivity extends BaseActivity {
     @OnClick(R.id.activity_product_details_show_specs)
     void showAllSpecs(){
         Intent intent = new Intent(this, AllSpecsActivity.class);
-        intent.putExtra(AllSpecsActivity.KEY_SPECS, _productModel.getMoreData());
+        intent.putExtra(AllSpecsActivity.KEY_SPECS, product.getMoreData());
         startActivity(intent);
     }
 
@@ -655,6 +743,24 @@ public class ProductDetailsActivity extends BaseActivity {
 
     @OnClick(R.id.back_btt)
     void back_btt(){
-        onBackPressed();
+        supportFinishAfterTransition();
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putSerializable("product" , product);
+    }
+
+    @Override
+    public void supportFinishAfterTransition() {
+        Log.e("ProductDetails" , "supportFinishAfterTransition");
+        if (product !=null){
+            Intent intent = new Intent() ;
+            intent.putExtra("product" , product );
+            setResult(1  , intent);
+            Log.e("ProductDetails" , "setResult");
+        }
+        super.supportFinishAfterTransition();
     }
 }

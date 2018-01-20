@@ -8,7 +8,7 @@
 
     <include layout="@layout/bg" />
 
-    <include layout="@layout/toolbar_category" />
+    <include layout="@layout/toolbar_light" />
 
 
 

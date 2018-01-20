@@ -85,6 +85,13 @@ public interface ApiInterface {
     );
 
     @FormUrlEncoded
+    @POST("product")
+    Call<ProductModel> getProduct(
+            @Field("product_id") long productId,
+            @Field("user_id") long user_id
+    );
+
+    @FormUrlEncoded
     @POST("product/comments/add")
     Call<ResponseBody> addComment(
             @Field("user_id") long userId,

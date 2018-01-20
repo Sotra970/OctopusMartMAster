@@ -68,7 +68,7 @@ public class FilterAdapter extends BaseExpandableListAdapter {
 
             convertView = layoutInflater.inflate(R.layout.sub_filter_item, null);
 
-            TextView expandedListTextView = (TextView) convertView
+            TextView expandedListTextView = convertView
                     .findViewById(R.id.expandedListItem);
             expandedListTextView.setText(expandedListText);
 
@@ -114,7 +114,7 @@ public class FilterAdapter extends BaseExpandableListAdapter {
             convertView = layoutInflater.inflate(R.layout.filter_item, null, false);
 
 
-            final ImageView indicator = (ImageView) convertView.findViewById(R.id.List_Group_indicator);
+            final ImageView indicator = convertView.findViewById(R.id.List_Group_indicator);
 
 
             if (isExpanded) {
@@ -136,7 +136,7 @@ public class FilterAdapter extends BaseExpandableListAdapter {
                 });
 
 
-            TextView listTitleTextView = (TextView) convertView
+            TextView listTitleTextView = convertView
                     .findViewById(R.id.listTitle);
             listTitleTextView.setText(listTitle);
         return convertView;

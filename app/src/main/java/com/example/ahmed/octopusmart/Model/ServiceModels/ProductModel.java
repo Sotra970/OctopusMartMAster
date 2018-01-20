@@ -70,6 +70,12 @@ public class ProductModel implements Serializable {
     @Expose
     private UserRateModel userRates;
 
+    @SerializedName("similar")
+    @Expose
+    private ArrayList<ProductModel> similar = new ArrayList<>();
+
+
+
     @SerializedName("my_rates")
     @Expose
     private UserRateModel myRate;
@@ -267,5 +273,14 @@ public class ProductModel implements Serializable {
 
     public void setTotalPrice(Integer totalPrice) {
         this.totalPrice = totalPrice;
+    }
+
+
+    public ArrayList<ProductModel> getSimilar() {
+        return similar;
+    }
+
+    public void setSimilar(ArrayList<ProductModel> similar) {
+        this.similar = similar;
     }
 }

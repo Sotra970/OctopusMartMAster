@@ -39,7 +39,6 @@
                     <ImageView
                         android:scaleType="fitCenter"
                         android:layout_gravity="center"
-                        android:src="@drawable/mobile2"
                         android:id="@+id/pager_img"
                         android:adjustViewBounds="true"
                         android:layout_width="match_parent"

@@ -105,8 +105,7 @@ public class ChooseAddressActivity extends BaseActivity{
         if (Validation.isEditTextEmpty(appt_number_edit_text, layout_appt_number))return false;
         if (Validation.isEditTextEmpty(floor_edit_text, layout_floor))return false;
         if (Validation.isEditTextEmpty(district_edit_text, layout_district))return false;
-        if (Validation.isEditTextEmpty(city_edit_text, layout_city))return false;
-        return true;
+        return !Validation.isEditTextEmpty(city_edit_text, layout_city);
     }
 
     private  String get_address(){
