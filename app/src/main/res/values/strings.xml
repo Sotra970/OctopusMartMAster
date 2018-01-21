@@ -142,6 +142,8 @@
     <string name="price">السعر</string>
     <string name="user">User</string>
     <string name="less">less</string>
+    <string name="search_hint">البحث عن.....</string>
+    <string name="password_change_error">كلمة المرور غير صحيحة</string>
 
 
 </resources>

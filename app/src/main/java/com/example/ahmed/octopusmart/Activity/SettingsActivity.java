@@ -1,6 +1,7 @@
 package com.example.ahmed.octopusmart.Activity;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -67,23 +68,33 @@ public class SettingsActivity extends BaseActivity implements GenericItemClickCa
     private void init() {
         settingsAdapter = new SettingsAdapter(getSettings(), this, this);
 
-        DividerItemDecoration dividerItemDecoration =
-                new DividerItemDecoration(this);
-        dividerItemDecoration.setActivated(true);
-        recyclerView.addItemDecoration(dividerItemDecoration);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+       if(Build.VERSION.SDK_INT >= 21){
+           DividerItemDecoration dividerItemDecoration =
+                   new DividerItemDecoration(this);
+           dividerItemDecoration.setActivated(true);
+           recyclerView.addItemDecoration(dividerItemDecoration);
+       }
+
+
+        recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(settingsAdapter);
     }
 
 
     public ArrayList<String> getSettings() {
         ArrayList<String> settings = new ArrayList<>();
-        settings.add(getString(R.string.settings_language));
+
+        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.O){
+            settings.add(getString(R.string.settings_language));
+        }
+
         settings.add(getString(R.string.settings_change_passowrd));
         settings.add(getString(R.string.settings_address));
         settings.add(getString(R.string.settings_phone));
         settings.add(getString(R.string.settings_email));
+
         return settings;
     }
 

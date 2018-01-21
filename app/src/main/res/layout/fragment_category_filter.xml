@@ -71,13 +71,12 @@
         android:layout_marginEnd="8dp"
         >
 
-
     </com.nex3z.flowlayout.FlowLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="16dp"
-        android:background="@color/transparent"></LinearLayout>
+        android:background="@color/transparent"/>
 
     <ExpandableListView
         android:background="@color/grey_100"
@@ -87,6 +86,9 @@
         android:id="@+id/expandableListView"
         android:layout_height="match_parent"
         android:layout_width="match_parent"
+        android:nestedScrollingEnabled="true"
         android:divider="@null"
         android:dividerHeight="2dp" />
+
+
 </LinearLayout>

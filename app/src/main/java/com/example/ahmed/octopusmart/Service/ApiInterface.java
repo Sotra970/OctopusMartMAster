@@ -120,8 +120,6 @@ public interface ApiInterface {
     );
 
 
-
-
     @FormUrlEncoded
     @POST("user/password")
     Call<ResponseBody> changePassword(
@@ -147,10 +145,10 @@ public interface ApiInterface {
     );
 
     @FormUrlEncoded
-    @POST("product/fav/remove")
+    //@POST("product/fav/remove")
     Call<ResponseBody> changeAddress(
-            long userId,
-            String address
+            @Field("user_id")long userId,
+            @Field("address")String address
     );
 
 

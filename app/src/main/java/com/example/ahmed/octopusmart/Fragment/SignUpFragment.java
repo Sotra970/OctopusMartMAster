@@ -131,7 +131,7 @@ public class SignUpFragment extends BaseLoginFragment {
         if (Validation.isEditTextEmpty(nameEditText , nameLayout)) return null;
         if (Validation.isEmailNotValid(emailEditText , emailLayout)) return null;
         if (Validation.isEditTextEmpty(passwordEditText , passwordLayout)) return null;
-        if (Validation.validatePasswordMatch(repeatPasswordEditText , repeatPasswordLayout , passwordEditText)) return null;
+        if (!Validation.isPasswordsTheSame(repeatPasswordEditText , repeatPasswordLayout , passwordEditText)) return null;
         if (Validation.validatePhone(phoneEditText , phoneLayout)) return null;
 
         UserModel userModel = new UserModel();

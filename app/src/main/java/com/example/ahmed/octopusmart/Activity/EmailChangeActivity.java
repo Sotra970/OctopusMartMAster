@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.example.ahmed.octopusmart.Activity.Base.BaseActivity;
 import com.example.ahmed.octopusmart.App.Appcontroler;
+import com.example.ahmed.octopusmart.Interfaces.LoadingActionClick;
 import com.example.ahmed.octopusmart.R;
 import com.example.ahmed.octopusmart.Service.CallbackWithRetry;
 import com.example.ahmed.octopusmart.Service.Injector;
@@ -74,9 +75,13 @@ public class EmailChangeActivity extends BaseActivity {
             pass = passEditText.getEditableText().toString();
 
             long userId = Appcontroler.getUserId();
-            if(!newE.isEmpty() && !pass.isEmpty()){
+
+            if(!newE.isEmpty() && !pass.isEmpty())
+            {
                 Call<ResponseBody> call =
                         Injector.Api().changeEmail(userId, newE, pass);
+
+                showLoading(LoadingCases.show, null);
 
                 call.enqueue(
                         new CallbackWithRetry<ResponseBody>(
@@ -84,12 +89,21 @@ public class EmailChangeActivity extends BaseActivity {
                                 new onRequestFailure() {
                                     @Override
                                     public void onFailure() {
-                                        confirm();
+                                        showLoading(LoadingCases.show,
+                                                new LoadingActionClick() {
+                                                    @Override
+                                                    public void OnClick() {
+                                                        confirm();
+                                                    }
+                                                });
+
                                     }
                                 }
                         ) {
                             @Override
                             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                                showLoading(LoadingCases.hide, null);
+
                                     if(response.isSuccessful()){
                                         if(response.isSuccessful()){
                                             showLongToast(theView, R.string.email_changed);

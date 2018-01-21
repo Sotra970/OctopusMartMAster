@@ -98,7 +98,11 @@ public class FilterFragment extends Fragment {
         expandableListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
             @Override
             public boolean onChildClick(ExpandableListView parent, View v,
-                                        int groupPosition, int childPosition, long id) {
+                                        int groupPosition, int childPosition, long id)
+            {
+
+                Log.e("category_filter", "onChildClick(): called");
+
                 int index = parent.getFlatListPosition(ExpandableListView.getPackedPositionForChild(groupPosition, childPosition));
                 expandableListView.setItemChecked(index, true);
 
@@ -145,12 +149,10 @@ public class FilterFragment extends Fragment {
 
 
     void removeCheck(int groupPosition ,int  childPosition ){
-        int index = expandableListView.getFlatListPosition(ExpandableListView.getPackedPositionForChild(groupPosition, childPosition));
-        CheckBox checkBox  = expandableListView.getChildAt(index).findViewById(R.id.sub_filter_check_box) ;
-        checkBox.setChecked(false);
         SubFilterModel subFilterModel =   filterModels.get(groupPosition).getSubFilters().get(childPosition) ;
-        subFilterModel.setChecked(checkBox.isChecked());
+        subFilterModel.setChecked(false);
         filterModels.get(groupPosition).getSubFilters().set(childPosition,subFilterModel);
+        expandableListAdapter.notifyDataSetChanged();
     }
 
     @BindView(R.id.filters)
@@ -159,7 +161,13 @@ public class FilterFragment extends Fragment {
     ArrayList<View> activeFilters = null;
 
     void onItemChecked(SubFilterModel subFilterModel, boolean checked,  int group, int item) {
+        Log.e("category_filter", "onItemChecked(): called");
+
+        Log.e("category_filter", "onItemChecked():  checked == " + checked);
+
         if(subFilterModel != null){
+            Log.e("category_filter", "onItemChecked(): subFilterModel != null");
+
             if(checked){
                 addActiveFilter(subFilterModel, group, item);
             }
@@ -168,9 +176,18 @@ public class FilterFragment extends Fragment {
                 removeActiveFilter(subFilterModel);
             }
         }
+
+        else{
+            Log.e("category_filter", "onItemChecked(): subFilterModel == null");
+
+        }
+
+        Log.e("category_filter", "-------------------------------------------------------------------------" );
     }
 
     private void addActiveFilter(SubFilterModel subFilterModel, final int group, final int item) {
+        Log.e("category_filter", "addActiveFilter(): called");
+
         if(activeFilters == null){
             activeFilters = new ArrayList<>();
         }
@@ -196,7 +213,7 @@ public class FilterFragment extends Fragment {
                                         public void run() {
                                             if(categoryActivity() != null){
                                                 if(filtersLayout.getChildCount() == 0){
-                                                    filtersLayout.getLayoutParams().height = 0;
+                                                    //filtersLayout.getLayoutParams().height = 0;
                                                     categoryActivity().reCalculatePeekValue(0);
                                                 }
                                                 else{
@@ -217,12 +234,14 @@ public class FilterFragment extends Fragment {
 
         filtersLayout.addView(v);
 
+
         filtersLayout.post(
                 new Runnable() {
                     @Override
                     public void run() {
                         if(categoryActivity() != null){
                             categoryActivity().reCalculatePeekValue(filtersLayout.getHeight());
+
                         }
                     }
                 }

@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.example.ahmed.octopusmart.Activity.Base.BaseActivity;
 import com.example.ahmed.octopusmart.App.Appcontroler;
+import com.example.ahmed.octopusmart.Interfaces.LoadingActionClick;
 import com.example.ahmed.octopusmart.R;
 import com.example.ahmed.octopusmart.Service.CallbackWithRetry;
 import com.example.ahmed.octopusmart.Service.Injector;
@@ -47,6 +48,9 @@ public class ChangePhoneActivity extends BaseActivity {
     @BindView(R.id.pass_confirm_layout)
     TextInputLayout passLayout;
 
+    @BindView(R.id.old_phone_layout)
+    TextInputLayout oldPhoneLayout;
+
     @BindView(R.id.pass_confirm)
     EditText passEditText;
 
@@ -81,23 +85,37 @@ public class ChangePhoneActivity extends BaseActivity {
                         userId, newP, pass
                 );
 
+                showLoading(LoadingCases.show, null);
+
                 call.enqueue(
                         new CallbackWithRetry<ResponseBody>(
                                 call,
                                 new onRequestFailure() {
                                     @Override
                                     public void onFailure() {
-                                        confirm();
+                                        showLoading(LoadingCases.fail,
+                                                new LoadingActionClick() {
+                                                    @Override
+                                                    public void OnClick() {
+                                                        confirm();
+                                                    }
+                                                });
+
                                     }
                                 }
                         ) {
                             @Override
                             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                                showLoading(LoadingCases.hide, null);
+
                                 if(response.isSuccessful()){
                                     showLongToast(theView, R.string.phone_changed);
                                     supportFinishAfterTransition();
                                 }
 
+                                else{
+                                    // TODO: 1/21/2018 show fail reason i don't know all failure codes
+                                }
                             }
                         }
                 );
@@ -108,8 +126,8 @@ public class ChangePhoneActivity extends BaseActivity {
     }
 
     private boolean validate() {
-        return Validation.isEditTextEmpty(newPhone, newPhoneLayout) &&
-                Validation.isEditTextEmpty(newPhone, newPhoneLayout) &&
-                Validation.isEditTextEmpty(passEditText, passLayout);
+        return !Validation.isEditTextEmpty(oldPhone, oldPhoneLayout) &&
+                !Validation.isEditTextEmpty(newPhone, newPhoneLayout) &&
+                !Validation.isEditTextEmpty(passEditText, passLayout);
     }
 }

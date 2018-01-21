@@ -12,8 +12,6 @@
         <include layout="@layout/search_toolbar"/>
 
 
-
-
         <include layout="@layout/no_data_layout"/>
 
         <FrameLayout

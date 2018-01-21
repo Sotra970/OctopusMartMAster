@@ -31,6 +31,7 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -145,53 +146,29 @@ public class SearchActivity extends BaseActivity
 
     private void initSearchView() {
         searchView.setMaxWidth(Integer.MAX_VALUE);
-        //searchView.setQueryHint(getString(R.string.menu_item_search));
+        searchView.setQueryHint(getString(R.string.search_hint));
 
-        //ImageView closeButton = searchView.findViewById(R.id.search_close_btn);
-
-        /*closeButton.setColorFilter(
-                ResourcesCompat.getColor(
+        searchView.setBackground(
+                ResourcesCompat.getDrawable(
                         getResources(),
-                        R.color.white,
-                        null
-                ),
-                PorterDuff.Mode.SRC_IN
-        );*/
-
-        final EditText et = searchView.findViewById(R.id.search_src_text);
-
-        et.setBackground(null);
-
-        /*et.setTextColor(
-                ResourcesCompat.getColor(
-                        getResources(),
-                        R.color.black,
+                        R.drawable.search_bg,
                         null
                 )
         );
 
-        et.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);*/
-
-       /* closeButton.setOnClickListener(
-                new View.OnClickListener() {
-
-                    @Override
-                    public void onClick(View v) {
-                        //Clear the text from EditText view
-                        et.setText("");
-
-                        //Clear query
-                        searchView.setQuery("", false);
-
-                        //switchSearchMode(false, null);
-                    }
-                });*/
+        final EditText et = searchView.findViewById(R.id.search_src_text);
+        et.setBackground(
+                ResourcesCompat.getDrawable(
+                        getResources(),
+                        R.drawable.search_bg,
+                        null
+                )
+        );
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
 
             @Override
             public boolean onQueryTextSubmit(String query) {
-
                 searchView.clearFocus();
 
                 return true;
@@ -258,6 +235,11 @@ public class SearchActivity extends BaseActivity
                 startActivity(i);
             }
         }
+    }
+
+    @OnClick(R.id.activity_back)
+    void exit(){
+        finish();
     }
 
     @BindView(R.id.loading)

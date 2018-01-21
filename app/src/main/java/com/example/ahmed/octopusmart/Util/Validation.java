@@ -44,18 +44,19 @@ public class Validation {
     }
 
 
-    static  public boolean validatePasswordMatch(EditText editText , TextInputLayout textInputLayout , EditText editText2){
+    static  public boolean isPasswordsTheSame(EditText editText , TextInputLayout textInputLayout , EditText editText2){
         if (!isEditTextEmpty(editText,textInputLayout))
         {
             if (!editText.getText().toString().equals(editText2.getText().toString()))
             {
                 editText.setError(Appcontroler.getInstance().getApplicationContext().getString(R.string.password_not_match));
                 editText.requestFocus();
-                return true;
+                return false;
             }
             else
-                return false;
-        }else return true ;
+                return true;
+        }
+        else return false ;
 
     }
 

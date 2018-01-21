@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.example.ahmed.octopusmart.Activity.Base.BaseActivity;
 import com.example.ahmed.octopusmart.App.Appcontroler;
+import com.example.ahmed.octopusmart.Interfaces.LoadingActionClick;
 import com.example.ahmed.octopusmart.R;
 import com.example.ahmed.octopusmart.Service.CallbackWithRetry;
 import com.example.ahmed.octopusmart.Service.Injector;
@@ -78,22 +79,44 @@ public class ChooseAddressActivity extends BaseActivity{
     @OnClick(R.id.confirm)
     void confirm(){
         if(!validate()) return;
-        Call<ResponseBody> call = Injector.Api().changeAddress(
+        final Call<ResponseBody> call = Injector.Api().changeAddress(
                 Appcontroler.getUserId(),
                 get_address()
         );
 
+        showLoading(LoadingCases.show, null);
+
         call.enqueue(new CallbackWithRetry<ResponseBody>(call, new onRequestFailure() {
             @Override
             public void onFailure() {
-                confirm();
+                showLoading(LoadingCases.fail,
+                        new LoadingActionClick() {
+                            @Override
+                            public void OnClick() {
+                                showLoading(LoadingCases.fail,
+                                        new LoadingActionClick() {
+                                            @Override
+                                            public void OnClick() {
+                                                confirm();
+                                            }
+                                        });
+
+                            }
+                        });
+
             }
         }) {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                showLoading(LoadingCases.hide, null);
+
                 if(response.isSuccessful()){
                     showLongToast(theView, R.string.address_added);
                     supportFinishAfterTransition();
+                }
+
+                else{
+                    // TODO: 1/21/2018 show fail reason i don't know all failure codes
                 }
             }
         });

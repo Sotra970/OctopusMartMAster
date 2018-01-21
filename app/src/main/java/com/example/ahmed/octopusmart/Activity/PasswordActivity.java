@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.example.ahmed.octopusmart.Activity.Base.BaseActivity;
 import com.example.ahmed.octopusmart.App.Appcontroler;
+import com.example.ahmed.octopusmart.Interfaces.LoadingActionClick;
 import com.example.ahmed.octopusmart.R;
 import com.example.ahmed.octopusmart.Service.CallbackWithRetry;
 import com.example.ahmed.octopusmart.Service.Injector;
@@ -74,6 +75,7 @@ public class PasswordActivity extends BaseActivity {
                 oldP = oldPass.getEditableText().toString();
                 newP = newPass.getEditableText().toString();
             }
+
             catch (Exception e){
                 e.printStackTrace();
             }
@@ -83,21 +85,35 @@ public class PasswordActivity extends BaseActivity {
             Call<ResponseBody> call =
                     Injector.Api().changePassword(userId, oldP, newP);
 
+            showLoading(LoadingCases.show, null);
+
             call.enqueue(
                     new CallbackWithRetry<ResponseBody>(
                             call,
                             new onRequestFailure() {
                                 @Override
                                 public void onFailure() {
-                                    confirm();
+                                    showLoading(LoadingCases.show,
+                                            new LoadingActionClick() {
+                                                @Override
+                                                public void OnClick() {
+                                                    confirm();
+                                                }
+                                            });
                                 }
                             }
                     ) {
                         @Override
                         public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                            showLoading(LoadingCases.hide, null);
+
                             if(response.isSuccessful()){
                                 showLongToast(theView, R.string.password_changed);
                                 supportFinishAfterTransition();
+                            }
+
+                            else{
+                                showLongToast(theView, R.string.password_change_error);
                             }
                         }
                     }
@@ -106,10 +122,10 @@ public class PasswordActivity extends BaseActivity {
     }
 
     private boolean validate() {
-        return Validation.isEditTextEmpty(oldPass, oldPassLayout) &&
-                Validation.isEditTextEmpty(newPass, newPassLayout) &&
-                Validation.isEditTextEmpty(confirmPass, confirmPassLayout) &&
-                Validation.validatePasswordMatch(newPass, confirmPassLayout, confirmPass);
+        return !Validation.isEditTextEmpty(oldPass, oldPassLayout) &&
+                !Validation.isEditTextEmpty(newPass, newPassLayout) &&
+                !Validation.isEditTextEmpty(confirmPass, confirmPassLayout) &&
+                Validation.isPasswordsTheSame(newPass, confirmPassLayout, confirmPass);
 
     }
 }

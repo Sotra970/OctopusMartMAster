@@ -286,19 +286,19 @@ public class CategoryActivity extends BaseActivity
 
 
     public void reCalculatePeekValue(int filtersH){
-        Log.e("recalculate H", filtersH + "");
+        Log.e("category_filter", filtersH + "");
         bottomSheetBehavior = BottomSheetBehavior.from(findViewById(R.id.filter_fragment));
 
         int height = getResources().getDimensionPixelSize(R.dimen.filter_peek_height);
 
         if(filtersH == 0){
-            Log.e("recalculate H", "no filters reset peek value");
+            Log.e("category_filter", "no filters reset peek value");
 
             bottomSheetBehavior.setPeekHeight(height);
         }
 
         else{
-            Log.e("recalculate H", "filters exist");
+            Log.e("category_filter", "filters exist");
 
             bottomSheetBehavior.setPeekHeight(filtersH + height + Utils.dpToPx(16, CategoryActivity.this));
         }
